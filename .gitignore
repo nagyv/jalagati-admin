@@ -93,7 +93,7 @@ local.properties
 # PDT-specific
 .buildpath
 
-# sbteclipse plugin 
+# sbteclipse plugin
 .target
 
 # TeXlipse plugin
@@ -133,3 +133,6 @@ node_modules
 
 ### Bower ###
 bower_components
+
+### dist folder ###
+dist

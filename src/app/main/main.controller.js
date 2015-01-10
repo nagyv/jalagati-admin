@@ -1,5 +1,5 @@
-angular.module('jalagatiJoga.controllers.Main', [])
+'use strict';
 
-.controller('MainController', function($scope){
-    $scope.sidebarUrl = 'app/main/sidebar.html';
+angular.module('jalagatiJoga').controller('MainController', function ($scope) {
+  $scope.hello = 'hello';
 });

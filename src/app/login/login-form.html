@@ -1,0 +1,30 @@
+<iframe src="sink.html" name="sink"
+        style="display:none"></iframe>
+<div class="modal">
+  <div class="modal-backdrop in"></div>
+  <div class="modal-dialog">
+    <form class="modal-content"
+      name="loginForm"
+      action="sink.html" target="sink" method="post"
+      ng-controller="LoginController"
+      ng-submit="login(credentials)"
+      novalidate form-autofill-fix>
+      <div class="modal-header">
+        <h4 class="modal-title">Bejelentkezés</h4>
+      </div>
+      <div class="modal-body">
+          <label for="username">Username:</label>
+          <input type="text" id="username"
+                 ng-model="credentials.username">
+          <label for="password">Password:</label>
+          <input type="password" id="password"
+                 ng-model="credentials.password">
+      </div>
+      <div class="modal-footer">
+        <a class="btn" ng-href="#/register">Reg</a>
+        <button type="submit">Login</button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
