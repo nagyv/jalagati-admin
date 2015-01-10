@@ -4,7 +4,9 @@ angular.module(['jalagatiJoga'])
   .directive('bkRegistrationForm', function (AUTH_EVENTS) {
     return {
       restrict: 'E',
-      scope: {},
+      scope: {
+        'setCurrentUser': '&'
+      },
       templateUrl: 'app/login/registration-form.html',
       controller: function($scope, $rootScope, AuthService) {
         $scope.credentials = {

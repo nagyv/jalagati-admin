@@ -8,8 +8,7 @@ angular.module('jalagatiJoga', [
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'app/pages/home.html',
-        reloadOnSearch: false
+        templateUrl: 'app/pages/home.html'
       })
       .when('/register', {
         templateUrl: 'app/pages/register.html',
@@ -17,14 +16,19 @@ angular.module('jalagatiJoga', [
           public: true
         }
       })
+      .when('/alkalmak', {
+        templateUrl: 'app/alkalmak/lista.html'
+      })
       .otherwise({
         redirectTo: '/'
       });
   })
-  .run(function ($rootScope, AUTH_EVENTS, AuthService, $location) {
+  .value('redirectToAfterLogin', { url: '/' })
+  .run(function ($rootScope, AUTH_EVENTS, AuthService, $location, redirectToAfterLogin) {
     $rootScope.$on('$routeChangeStart', function (event, current) {
       if (!AuthService.isAuthorized(current.data && current.data.public)) {
         event.preventDefault();
+        redirectToAfterLogin.url = current.url;
         if (AuthService.isAuthenticated()) {
           // user is not allowed
           $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
@@ -35,7 +39,7 @@ angular.module('jalagatiJoga', [
       }
     });
     $rootScope.$on(AUTH_EVENTS.loginSuccess, function(event) {
-      $location.path('/');
+      $location.path(redirectToAfterLogin.url);
     });
   })
   .config(function ($httpProvider) {
@@ -70,13 +74,13 @@ angular.module('jalagatiJoga', [
       }
     };
   })
-  .controller('ApplicationController', function ($scope, USER_ROLES, AuthService) {
+  .controller('ApplicationController', function ($scope, $rootScope, USER_ROLES, AuthService) {
     $scope.sidebarUrl = 'app/pages/sidebar.html';
     $scope.currentUser = null;
     $scope.userRoles = USER_ROLES;
     $scope.isAuthorized = AuthService.isAuthorized;
 
-    $scope.setCurrentUser = function (user) {
+    $rootScope.setCurrentUser = function (user) {
       $scope.currentUser = user;
     };
   });

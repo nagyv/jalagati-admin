@@ -2,15 +2,13 @@
 
 angular.module('jalagatiJoga')
   .service('Session', function () {
-    this.create = function (sessionId, userId, userRole) {
-      this.id = sessionId;
-      this.userId = userId;
-      this.userRole = userRole;
+    this.create = function (userId, name, userRole) {
+      this.id = userId;
+      this.name = name;
     };
     this.destroy = function () {
       this.id = null;
-      this.userId = null;
-      this.userRole = null;
+      this.name = null;
     };
     return this;
   })
@@ -36,11 +34,11 @@ angular.module('jalagatiJoga')
     };
 
     authService.isAuthenticated = function () {
-      return !!Session.userId;
+      return !!Session.id;
     };
 
     authService.isAuthorized = function (isPublic) {
-      return isPublic || !!Session.userId;
+      return isPublic || !!Session.id;
     };
 
     return authService;

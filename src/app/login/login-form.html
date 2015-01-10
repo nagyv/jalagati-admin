@@ -6,7 +6,6 @@
     <form class="modal-content"
       name="loginForm"
       action="sink.html" target="sink" method="post"
-      ng-controller="LoginController"
       ng-submit="login(credentials)"
       novalidate form-autofill-fix>
       <div class="modal-header">
@@ -21,7 +20,7 @@
                  ng-model="credentials.password">
       </div>
       <div class="modal-footer">
-        <a class="btn" ng-href="#/register">Reg</a>
+        <a class="btn" ng-href="#/register" ng-click="hideDialog()">Reg</a>
         <button type="submit">Login</button>
       </div>
     </form>
