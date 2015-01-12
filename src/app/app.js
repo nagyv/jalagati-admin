@@ -2,10 +2,12 @@
 
 angular.module('jalagatiJoga', [
   'ngRoute',
+  'ngResource',
   'mobile-angular-ui',
   'restangular'
 ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider, $locationProvider) {
+//    $locationProvider.html5Mode(true);
     $routeProvider
       .when('/', {
         templateUrl: 'app/pages/home.html'
@@ -16,15 +18,24 @@ angular.module('jalagatiJoga', [
           public: true
         }
       })
+      .when('/alkalmak/uj', {
+        templateUrl: 'app/alkalmak/uj-alkalom-form.html',
+        controller: 'UjAlkalomController'
+      })
+      .when('/alkalmak/:alkalomId', {
+        templateUrl: 'app/alkalmak/egy-alkalom.html',
+        controller: 'AlkalomController'
+      })
       .when('/alkalmak', {
-        templateUrl: 'app/alkalmak/lista.html'
+        templateUrl: 'app/alkalmak/lista-alkalmak.html',
+        controller: 'AlkalomListaController'
       })
       .otherwise({
         redirectTo: '/'
       });
   })
   .value('redirectToAfterLogin', { url: '/' })
-  .run(function ($rootScope, AUTH_EVENTS, AuthService, $location, redirectToAfterLogin) {
+  .run(function ($rootScope, $http, AUTH_EVENTS, AuthService, $location, redirectToAfterLogin) {
     $rootScope.$on('$routeChangeStart', function (event, current) {
       if (!AuthService.isAuthorized(current.data && current.data.public)) {
         event.preventDefault();

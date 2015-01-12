@@ -1,0 +1,8 @@
+<section class="section container-fluid">
+  <h1 class="page-header">Alkalmak</h1>
+  <ul>
+	<li ng-repeat="alkalom in alkalmak">
+    <a ng-href="#/alkalmak/{{alkalom._id}}">{{alkalom.tartja}}, {{alkalom.location}}, {{alkalom.starts | date:'medium'}}</a>
+  </li>
+  </ul>
+</section>
