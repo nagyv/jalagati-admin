@@ -1,0 +1,31 @@
+<section class="section container-fluid">
+  <div class="row">
+    <h2>{{alkalom.starts | date:'medium' }} - {{alkalom.location}} / {{alkalom.tartja}}</h2>
+    <div class="col-xs-12">
+      <fieldset>
+       <legend>Szűrés:</legend>
+        <input type="text" autofocus ng-model="search"> <button ng-click="addJogas(search)" ng-show="search">Új jógázó</button>
+        <select ng-model="location" ng-options="l.name as l.name for l in varosok">
+          <option value="">--</option>
+        </select>
+      </fieldset>
+    </div>
+    <ul class="col-xs-6">
+      <li ng-repeat="jogas in jogasok | filter:location | filter:search">
+        <a ng-click="addResztvevo(jogas, alkalom)">{{jogas.toString()}}</a>
+        <a href="jogasok.berlet({jogasId:jogas._id})" class="btn">Bérletek</a>
+      </li>
+    </ul>
+    <div class="col-xs-6">
+      <h3>Résztvevők:</h3>
+      <ul>
+        <li ng-repeat="resztvevo in alkalom.resztvevok">
+          <!--<jogas jogas="resztvevo"></jogas>-->
+          resztvevo
+          <button ng-click="removeResztvevo($index)">X</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
