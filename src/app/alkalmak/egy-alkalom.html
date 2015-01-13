@@ -12,8 +12,8 @@
     </div>
     <ul class="col-xs-6">
       <li ng-repeat="jogas in jogasok | filter:location | filter:search">
-        <a ng-click="addResztvevo(jogas, alkalom)">{{jogas.toString()}}</a>
-        <a href="jogasok.berlet({jogasId:jogas._id})" class="btn">Bérletek</a>
+        <a ng-click="addResztvevo(jogas, alkalom)">{{jogas.name}}</a>
+        <a ng-href="#/jogasok/{{jogas._id}}/berlet" class="btn">Bérletek</a>
       </li>
     </ul>
     <div class="col-xs-6">
@@ -21,7 +21,7 @@
       <ul>
         <li ng-repeat="resztvevo in alkalom.resztvevok">
           <!--<jogas jogas="resztvevo"></jogas>-->
-          resztvevo
+          {{resztvevo.name}}
           <button ng-click="removeResztvevo($index)">X</button>
         </li>
       </ul>

@@ -1,0 +1,44 @@
+<section class="section container-fluid">
+  <div class="row">
+    <div class="col-sx-6  col-md-6">
+      <div>
+        <h3>Szűrés:</h3>
+        <input type="text" ng-model="search">
+        <select ng-model="location" ng-options="l for l in varosok">
+          <option value="">--</option>
+        </select>
+      </div>
+      <h3>Jógázók</h3>
+      <ul>
+        <li ng-repeat="jogas in jogasok | filter: location | filter:search">
+          <span>{{jogas.name}} <span ng-if="jogas.nick"> ({{jogas.nick}})</span></span>
+          <a ng-href="#/jogasok/{{jogas._id}}" class="btn">Adatok</a>
+          <a ng-href="#/jogasok/{{jogas._id}}/berlet" class="btn">Bérletek</a>
+          <a href="#" class="btn">Történet</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sx-6 col-md-6">
+      <h3>Új jógázó</h3>
+
+      <form role="form" ng-submit="addJogas(jogas)" ng-hide="search">
+        <div class="form-group">
+          <label>Név<input type="text" ng-model="jogas.name" autofocus ng-required="true"/></label>
+        </div>
+        <div class="form-group">
+          <label>Becenév<input type="text" ng-model="jogas.nick"/></label>
+        </div>
+        <div class="form-group">
+          <label>E-mail<input type="text" ng-model="jogas.email"/></label>
+        </div>
+        <div class="form-group">
+          <label>Város
+            <select ng-model="jogas.city" ng-options="l for l in varosok" ng-required="true"></select>
+          </label>
+        </div>
+
+        <button type="submit">Add</button>
+      </form>
+    </div>
+  </div>
+</section>

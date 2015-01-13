@@ -22,7 +22,7 @@ angular.module(['jalagatiJoga'])
       'id': '@_id',
       'action': '@action'
     }, {
-      'addResztvevo': {'method': 'POST', 'params': {'action': 'addResztvevo'}}
+      'addResztvevo': {'method': 'POST', 'params': {'action': 'addResztvevo', jogasId: true}}
     });
     return Alkalom;
   })
@@ -47,11 +47,14 @@ angular.module(['jalagatiJoga'])
   .controller('AlkalomListaController', function ($scope, Alkalom) {
     $scope.alkalmak = Alkalom.query();
   })
-  .controller('AlkalomController', function ($scope, $routeParams, Alkalom) {
+  .controller('AlkalomController', function ($scope, $routeParams, $window, Jogas, $location, Alkalom) {
     $scope.alkalom = Alkalom.get({'id': $routeParams.alkalomId});
-    $scope.addJogas = _.noop();
-    $scope.addResztvevo = function addResztvevo(resztvevo, alkalom) {
-      alkalom.addResztvevo(resztvevo);
+    $scope.jogasok = Jogas.query();
+    $scope.addJogas = function() {
+      $location.path('/jogasok');
     };
-    $scope.removeResztvevo = _.noop();
+    $scope.addResztvevo = function addResztvevo(resztvevo, alkalom) {
+      alkalom.$addResztvevo({jogasId: resztvevo._id});
+    };
+    $scope.removeResztvevo = function(){$window.alert('notimp');};
   });

@@ -1,0 +1,24 @@
+<section class="section container-fluid">
+  <h1>{{jogas.name}} adatai</h1>
+
+  <form role="form">
+    <div class="form-group">
+      <label>Név<input type="text" value="{{jogas.name}}" ng-model="jogas.name" ng-required="true"/></label>
+    </div>
+    <div class="form-group">
+      <label>Becenév<input type="text" value="{{jogas.nick}}" ng-model="jogas.nick"/></label>
+    </div>
+    <div class="form-group">
+      <label>E-mail<input type="text" value="{{jogas.email}}" ng-model="jogas.email"/></label>
+    </div>
+    <div class="form-group">
+      <label>Város:
+        {{jogas.city}}
+      </label>
+    </div>
+    <button class="btn btn-primary" ng-click="save(jogas)">Ment</button>
+    <button type="reset" class="btn btn-warning">Mégse</button>
+    <a ng-href="#/jogasok/{{jogas._id}}/berlet" class="btn">Bérletek</a>
+    <a href="#" class="btn">Történet</a>
+  </form>
+</section>

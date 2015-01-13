@@ -30,6 +30,18 @@ angular.module('jalagatiJoga', [
         templateUrl: 'app/alkalmak/lista-alkalmak.html',
         controller: 'AlkalomListaController'
       })
+      .when( '/jogasok/:jogasId/berlet', {
+        controller: 'BerletCtrl',
+        templateUrl: 'app/jogas/berlet.html'
+      })
+      .when( '/jogasok/:jogasId', {
+          controller: 'JogasCtrl',
+          templateUrl: 'app/jogas/jogas-egy.html'
+      })
+      .when('/jogasok', {
+        controller: 'JogasokCtrl',
+        templateUrl: 'app/jogas/jogasok-lista.html'
+      })
       .otherwise({
         redirectTo: '/'
       });
