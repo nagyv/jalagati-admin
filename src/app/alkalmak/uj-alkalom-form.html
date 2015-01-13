@@ -3,7 +3,7 @@
     <form role="form" ng-submit="setupAlkalom(ujAlkalom)">
         <div class="form-group">
             <label for="jogatarto">Jógatartó</label>
-            <select id="jogatarto" class="form-control" autofocus ng-model="ujAlkalom.tartja" ng-required="true" ng-options="j.name as j.name for j in jogatartok"></select>
+            <select id="jogatarto" class="form-control" autofocus ng-model="ujAlkalom.tartja" ng-required="true" ng-options="j for j in jogatartok"></select>
             <!-- <input type="text" > -->
         </div>
         <div class="form-group">
@@ -12,8 +12,7 @@
         </div>
         <div class="form-group">
             <label for="helyszin">Helyszín</label>
-            <select id="helyszin" class="form-control" ng-model="ujAlkalom.location" ng-required="true" ng-options="l.name as l.name for l in varosok"></select>
-            <!-- <input id="helyszin" type="text" placeholder="Helyszín" class="form-control" ng-model="ujAlkalom.location" required="required"> -->
+            <select id="helyszin" class="form-control" ng-model="ujAlkalom.location" ng-required="true" ng-options="l for l in varosok"></select>
         </div>
         <div class="form-group">
             <label for="datum">Dátum</label>

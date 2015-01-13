@@ -11,7 +11,7 @@ function nextHour(offset) {
 }
 
 angular.module(['jalagatiJoga'])
-  .value('jogaTartok', [
+  .value('jogatartok', [
     'Sisi', 'Lakshmi'
   ])
   .value('varosok', [
@@ -26,18 +26,18 @@ angular.module(['jalagatiJoga'])
     });
     return Alkalom;
   })
-  .controller('UjAlkalomController', function($scope, $location, Alkalom, jogaTartok, varosok){
-    var _nextHour = nextHour();
-    $scope.jogaTartok = jogaTartok;
+  .controller('UjAlkalomController', function($scope, $location, Alkalom, jogatartok, varosok){
+    var _nextHour = nextHour().toDate();
+    $scope.jogatartok = jogatartok;
     $scope.varosok = varosok;
     $scope.ujAlkalom = {
       tartja: null,
       segit: $scope.currentUser.name,
-      date: _nextHour.format('YYYY-MM-DD'),
-      time: _nextHour.format('HH:mm')
+      date: _nextHour,
+      time: _nextHour
     };
     $scope.setupAlkalom = function (alkalom) {
-      alkalom.starts = alkalom.date + ' ' + alkalom.time;
+      alkalom.starts = moment(alkalom.date.toISOString().split('T')[0] + ' ' + alkalom.time.toLocaleTimeString()).toDate();
       alkalom = new Alkalom(alkalom);
       alkalom.$save(function (value) {
         $location.path('/alkalmak/' + value._id);
