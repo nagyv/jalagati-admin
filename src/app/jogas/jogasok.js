@@ -15,7 +15,8 @@ angular.module(['jalagatiJoga'])
     $scope.varosok = varosok;
     $scope.search = $scope.location = '';
     $scope.jogas = {
-      city: null
+      name: $location.search().name,
+      city: $location.search().city
     };
     $scope.addJogas = function (jogas) {
       var j = new Jogas(jogas);

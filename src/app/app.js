@@ -24,7 +24,8 @@ angular.module('jalagatiJoga', [
       })
       .when('/alkalmak/:alkalomId', {
         templateUrl: 'app/alkalmak/egy-alkalom.html',
-        controller: 'AlkalomController'
+        controller: 'AlkalomController',
+        reloadOnSearch: false
       })
       .when('/alkalmak', {
         templateUrl: 'app/alkalmak/lista-alkalmak.html',

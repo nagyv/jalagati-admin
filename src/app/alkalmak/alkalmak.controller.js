@@ -47,10 +47,13 @@ angular.module(['jalagatiJoga'])
   .controller('AlkalomListaController', function ($scope, Alkalom) {
     $scope.alkalmak = Alkalom.query();
   })
-  .controller('AlkalomController', function ($scope, $routeParams, $window, Jogas, $location, Alkalom) {
+  .controller('AlkalomController', function ($scope, $routeParams, $window, Jogas, $location, Alkalom, varosok) {
     $scope.alkalom = Alkalom.get({'id': $routeParams.alkalomId});
     $scope.jogasok = Jogas.query();
-    $scope.addJogas = function() {
+    $scope.varosok = varosok;
+    $scope.addJogas = function(search) {
+      $location.search('name', search);
+      $location.search('city', $scope.alkalom.location);
       $location.path('/jogasok');
     };
     $scope.addResztvevo = function addResztvevo(resztvevo, alkalom) {

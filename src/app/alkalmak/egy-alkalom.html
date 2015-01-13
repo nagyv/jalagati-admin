@@ -5,7 +5,7 @@
       <fieldset>
        <legend>Szűrés:</legend>
         <input type="text" autofocus ng-model="search"> <button ng-click="addJogas(search)" ng-show="search">Új jógázó</button>
-        <select ng-model="location" ng-options="l.name as l.name for l in varosok">
+        <select ng-model="location" ng-options="l for l in varosok">
           <option value="">--</option>
         </select>
       </fieldset>
