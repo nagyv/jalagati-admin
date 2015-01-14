@@ -22,7 +22,7 @@
         <li ng-repeat="resztvevo in alkalom.resztvevok">
           <!--<jogas jogas="resztvevo"></jogas>-->
           {{resztvevo.name}}
-          <button ng-click="removeResztvevo($index)">X</button>
+          <button ng-click="removeResztvevo(resztvevo, alkalom)">X</button>
         </li>
       </ul>
     </div>

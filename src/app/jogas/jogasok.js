@@ -21,7 +21,11 @@ angular.module(['jalagatiJoga'])
     $scope.addJogas = function (jogas) {
       var j = new Jogas(jogas);
       j.$save(function (value) {
-        $location.path('/jogasok/' + value._id);
+        if($location.search().next) {
+          $location.path($location.search().next);
+        } else {
+          $location.path('/jogasok/' + value._id);
+        }
       });
     };
   })

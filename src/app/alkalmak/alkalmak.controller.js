@@ -22,7 +22,8 @@ angular.module(['jalagatiJoga'])
       'id': '@_id',
       'action': '@action'
     }, {
-      'addResztvevo': {'method': 'POST', 'params': {'action': 'addResztvevo', jogasId: true}}
+      'addResztvevo': {'method': 'POST', 'params': {'action': 'addResztvevo', jogasId: true}},
+      'removeResztvevo': {'method': 'POST', 'params': {'action': 'removeResztvevo', jogasId: true}}
     });
     return Alkalom;
   })
@@ -52,6 +53,7 @@ angular.module(['jalagatiJoga'])
     $scope.jogasok = Jogas.query();
     $scope.varosok = varosok;
     $scope.addJogas = function(search) {
+      $location.search('next', $location.path());
       $location.search('name', search);
       $location.search('city', $scope.alkalom.location);
       $location.path('/jogasok');
@@ -59,5 +61,7 @@ angular.module(['jalagatiJoga'])
     $scope.addResztvevo = function addResztvevo(resztvevo, alkalom) {
       alkalom.$addResztvevo({jogasId: resztvevo._id});
     };
-    $scope.removeResztvevo = function(){$window.alert('notimp');};
+    $scope.removeResztvevo = function(resztvevo, alkalom){
+      alkalom.$removeResztvevo({jogasId: resztvevo._id});
+    };
   });
