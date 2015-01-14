@@ -19,22 +19,22 @@
       </form>
     </div>
     <ul class="col-xs-6 list-group">
-      <li class="list-group-item" ng-repeat="jogas in jogasok | filter:location | filter:search | orderBy:name">
+      <li class="list-group-item clearfix" ng-repeat="jogas in jogasok | filter:location | filter:search | orderBy:name">
+        <div class="list-group-text">{{jogas.name}}</div>
         <div class="pull-right">
           <a ng-click="addResztvevo(jogas, alkalom)" class="btn btn-primary"><i class="fa fa-check"></i>Választ</a>
           <a ng-href="#/jogasok/{{jogas._id}}/berlet" class="btn btn-default"><i class="fa fa-star-half"></i>Bérletek</a>
         </div>
-        <div class="list-group-text with-buttons">{{jogas.name}}</div>
       </li>
     </ul>
     <div class="col-xs-6">
       <h3>Résztvevők:</h3>
       <ul class="list-group">
-        <li class="list-group-item" ng-repeat="resztvevo in alkalom.resztvevok | orderBy:name">
+        <li class="list-group-item clearfix" ng-repeat="resztvevo in alkalom.resztvevok | orderBy:name">
+          <div class="list-group-text">{{resztvevo.name}}</div>
           <div class="pull-right">
             <button ng-click="removeResztvevo(resztvevo, alkalom)" class="btn btn-warning"><i class="fa fa-times"></i></button>
           </div>
-          <div class="with-buttons">{{resztvevo.name}}</div>
         </li>
       </ul>
     </div>

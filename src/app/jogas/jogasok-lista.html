@@ -17,13 +17,13 @@
       </div>
       <h3>Jógázók</h3>
       <ul class="list-group">
-        <li class="list-group-item" ng-repeat="jogas in jogasok | filter: location | filter:search | orderBy:name">
+        <li class="list-group-item clearfix" ng-repeat="jogas in jogasok | filter: location | filter:search | orderBy:name">
+          <div class="list-group-item-text">{{jogas.name}} <span ng-if="jogas.nick"> ({{jogas.nick}})</span></div>
           <div class="pull-right">
             <a ng-href="#/jogasok/{{jogas._id}}" class="btn btn-default"><i class="fa fa-user"></i> Adatok</a>
             <a ng-href="#/jogasok/{{jogas._id}}/berlet" class="btn btn-default"><i class="fa fa-star-half"></i>Bérletek</a>
             <a href="#/jogasok/{{jogas._id}}/alkalmak" class="btn btn-default"><i class="fa fa-calendar"></i>Történet</a>
           </div>
-          <div class="list-group-item-text with-buttons">{{jogas.name}} <span ng-if="jogas.nick"> ({{jogas.nick}})</span></div>
         </li>
       </ul>
     </div>
