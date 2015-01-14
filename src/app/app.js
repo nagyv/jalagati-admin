@@ -1,13 +1,13 @@
 'use strict';
 
+var BackendServiceURL = 'https://jogaadmin.herokuapp.com';
+
 angular.module('jalagatiJoga', [
   'ngRoute',
   'ngResource',
   'mobile-angular-ui',
   'restangular'
 ])
-  .value('BackendServiceURL', 'https://jogaadmin.herokuapp.com')
-  .value('BackendServiceURL', 'https://jogaadmin.herokuapp.com')
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -71,7 +71,7 @@ angular.module('jalagatiJoga', [
       $location.path(redirectToAfterLogin.url);
     });
   })
-  .config(function ($httpProvider, BackendServiceURL) {
+  .config(function ($httpProvider) {
     $httpProvider.interceptors.push([
       '$injector',
       function ($injector) {
