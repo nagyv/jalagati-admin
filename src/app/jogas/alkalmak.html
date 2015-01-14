@@ -1,0 +1,12 @@
+<section class="section container-fluid">
+  <div class="row">
+    <h1>Mikor járt nálunk {{jogas.name}}?</h1>
+
+  <ul class="col-xs-12">
+    <li ng-repeat="alkalom in jogas.alkalmak">
+      <a ng-href="#/alkalmak/{{alkalom.alkalom}}">{{alkalom.date}}</a>
+    </li>
+  </ul>
+  </div>
+
+</section>

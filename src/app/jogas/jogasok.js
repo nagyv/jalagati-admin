@@ -45,5 +45,7 @@ angular.module(['jalagatiJoga'])
       });
     };
   })
-;
+  .controller('JogasAlkalmakController', function JogasAlkalmakController($scope, $routeParams, Jogas){
+    $scope.jogas = Jogas.get({id: $routeParams.jogasId});
+  });
 

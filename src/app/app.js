@@ -31,6 +31,10 @@ angular.module('jalagatiJoga', [
         templateUrl: 'app/alkalmak/lista-alkalmak.html',
         controller: 'AlkalomListaController'
       })
+      .when( '/jogasok/:jogasId/alkalmak', {
+        controller: 'JogasAlkalmakController',
+        templateUrl: 'app/jogas/alkalmak.html'
+      })
       .when( '/jogasok/:jogasId/berlet', {
         controller: 'BerletCtrl',
         templateUrl: 'app/jogas/berlet.html'
