@@ -14,7 +14,7 @@ function nextHour(offset) {
 
 angular.module(['jalagatiJoga'])
   .value('jogatartok', [
-    'Sisi', 'Lakshmi'
+    'Lakshmi', 'Paci', 'Kupati' ,'Parvati', 'Kecske', 'Gyík', 'Gopi', 'Pocok'
   ])
   .value('varosok', [
     'Budapest, Király utca', 'Szeged'
