@@ -1,6 +1,7 @@
 <section class="section container-fluid">
   <div class="row">
     <div class="col-xs-6">
+      <h3>Jógázók</h3>
       <div class="col-xs-12">
           <form class="form-inline">
           <div class="form-group col-xs-6">
@@ -15,8 +16,7 @@
           </div>
         </form>
       </div>
-      <h3>Jógázók</h3>
-      <ul class="list-group">
+      <ul class="col-xs-12 list-group">
         <li class="list-group-item clearfix" ng-repeat="jogas in jogasok | filter: location | filter:search | orderBy:name">
           <div class="list-group-item-text">{{jogas.name}} <span ng-if="jogas.nick"> ({{jogas.nick}})</span></div>
           <div class="pull-right">
