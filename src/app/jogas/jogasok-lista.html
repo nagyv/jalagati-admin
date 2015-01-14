@@ -17,7 +17,7 @@
       </div>
       <h3>Jógázók</h3>
       <ul class="list-group">
-        <li class="list-group-item" ng-repeat="jogas in jogasok | filter: location | filter:search">
+        <li class="list-group-item" ng-repeat="jogas in jogasok | filter: location | filter:search | orderBy:name">
           <div class="pull-right">
             <a ng-href="#/jogasok/{{jogas._id}}" class="btn btn-default"><i class="fa fa-user"></i> Adatok</a>
             <a ng-href="#/jogasok/{{jogas._id}}/berlet" class="btn btn-default"><i class="fa fa-star-half"></i>Bérletek</a>

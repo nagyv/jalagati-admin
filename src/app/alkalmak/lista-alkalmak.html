@@ -1,6 +1,10 @@
 <section class="section container-fluid">
-  <h1 class="page-header">Alkalmak</h1>
-	<div ng-repeat="alkalom in alkalmak" class="list-group">
+  <h1 class="page-header">Alkalmak
+    <select id="varos-filter" class="pull-right" ng-model="location" ng-options="l for l in varosok">
+      <option value="">--</option>
+    </select>
+  </h1>
+  <div ng-repeat="alkalom in alkalmak | filter:location | orderBy:starts" class="list-group">
     <a class="list-group-item" ng-href="#/alkalmak/{{alkalom._id}}">{{alkalom.tartja}}, {{alkalom.location}}, {{alkalom.starts | date:'medium'}}
     <i class="fa fa-chevron-right pull-right"></i></a>
   </div>

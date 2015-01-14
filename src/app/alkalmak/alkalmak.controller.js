@@ -47,7 +47,9 @@ angular.module(['jalagatiJoga'])
       });
     };
   })
-  .controller('AlkalomListaController', function ($scope, Alkalom) {
+  .controller('AlkalomListaController', function ($scope, Alkalom, varosok) {
+    $scope.varosok = varosok;
+    $scope.location = '';
     $scope.alkalmak = Alkalom.query();
   })
   .controller('AlkalomController', function ($scope, $routeParams, $window, Jogas, $location, Alkalom, varosok) {
