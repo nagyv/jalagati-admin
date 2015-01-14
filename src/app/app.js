@@ -6,8 +6,9 @@ angular.module('jalagatiJoga', [
   'mobile-angular-ui',
   'restangular'
 ])
-  .config(function ($routeProvider, $locationProvider) {
-//    $locationProvider.html5Mode(true);
+  .value('BackendServiceURL', 'https://jogaadmin.herokuapp.com')
+  .value('BackendServiceURL', 'https://jogaadmin.herokuapp.com')
+  .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'app/pages/home.html'
@@ -70,7 +71,7 @@ angular.module('jalagatiJoga', [
       $location.path(redirectToAfterLogin.url);
     });
   })
-  .config(function ($httpProvider) {
+  .config(function ($httpProvider, BackendServiceURL) {
     $httpProvider.interceptors.push([
       '$injector',
       function ($injector) {
@@ -82,7 +83,7 @@ angular.module('jalagatiJoga', [
         'request': function(config) {
           var LastChunk = config.url.split('/').splice(-1)[0];
           if(LastChunk.indexOf('.') === -1) {
-            config.url = 'http://localhost:8000' + config.url;
+            config.url = BackendServiceURL + config.url;
           }
           return config;
         }
