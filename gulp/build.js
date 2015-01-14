@@ -7,7 +7,7 @@ var $ = require('gulp-load-plugins')({
 });
 
 gulp.task('styles', ['wiredep', 'injector:css:preprocessor'], function () {
-  return gulp.src(['src/less/index.less'])
+  return gulp.src(['src/less/app.less'])
     .pipe($.less({
       paths: [
         'src/bower_components',
@@ -23,10 +23,10 @@ gulp.task('styles', ['wiredep', 'injector:css:preprocessor'], function () {
 });
 
 gulp.task('injector:css:preprocessor', function () {
-  return gulp.src('src/less/index.less')
+  return gulp.src('src/less/app.less')
     .pipe($.inject(gulp.src([
         'src/{less}/**/*.less',
-        '!src/less/index.less'
+        '!src/less/app.less'
       ], {read: false}), {
       transform: function(filePath) {
         filePath = filePath.replace('src/less/', '');

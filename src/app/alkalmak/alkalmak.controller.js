@@ -7,6 +7,8 @@ function nextHour(offset) {
   }
   now.set('hour', now.get('hour') + 1);
   now.set('minute', 0);
+  now.set('second', 0);
+  now.set('millisecond', 0);
   return now;
 }
 

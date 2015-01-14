@@ -2,27 +2,39 @@
   <div class="row">
     <h2>{{alkalom.starts | date:'medium' }} - {{alkalom.location}} / {{alkalom.tartja}}</h2>
     <div class="col-xs-12">
-      <fieldset>
-       <legend>Szűrés:</legend>
-        <input type="text" autofocus ng-model="search"> <button ng-click="addJogas(search)" ng-show="search">Új jógázó</button>
-        <select ng-model="location" ng-options="l for l in varosok">
-          <option value="">--</option>
-        </select>
-      </fieldset>
+      <form class="form-inline">
+        <div class="form-group col-xs-4">
+          <label for="filter" class="sr-only">Szűrés</label>
+          <input id="filter" class="form-control" type="text" autofocus ng-model="search">
+        </div>
+        <div class="form-group col-xs-4">
+          <label for="varos-filter" class="sr-only">Városok</label>
+          <select id="varos-filter" class="form-control" ng-model="location" ng-options="l for l in varosok">
+            <option value="">--</option>
+          </select>
+        </div>
+        <div class="form-group col-xs-4">
+          <button ng-click="addJogas(search)" ng-show="search" class="btn btn-primary">Új jógázó</button>
+        </div>
+      </form>
     </div>
-    <ul class="col-xs-6">
-      <li ng-repeat="jogas in jogasok | filter:location | filter:search">
-        <a ng-click="addResztvevo(jogas, alkalom)">{{jogas.name}}</a>
-        <a ng-href="#/jogasok/{{jogas._id}}/berlet" class="btn">Bérletek</a>
+    <ul class="col-xs-6 list-group">
+      <li class="list-group-item" ng-repeat="jogas in jogasok | filter:location | filter:search | orderBy:name">
+        <div class="pull-right">
+          <a ng-click="addResztvevo(jogas, alkalom)" class="btn btn-primary"><i class="fa fa-check"></i>Választ</a>
+          <a ng-href="#/jogasok/{{jogas._id}}/berlet" class="btn btn-default"><i class="fa fa-star-half"></i>Bérletek</a>
+        </div>
+        <div class="list-group-text with-buttons">{{jogas.name}}</div>
       </li>
     </ul>
     <div class="col-xs-6">
       <h3>Résztvevők:</h3>
-      <ul>
-        <li ng-repeat="resztvevo in alkalom.resztvevok">
-          <!--<jogas jogas="resztvevo"></jogas>-->
-          {{resztvevo.name}}
-          <button ng-click="removeResztvevo(resztvevo, alkalom)">X</button>
+      <ul class="list-group">
+        <li class="list-group-item" ng-repeat="resztvevo in alkalom.resztvevok | orderBy:name">
+          <div class="pull-right">
+            <button ng-click="removeResztvevo(resztvevo, alkalom)" class="btn btn-warning"><i class="fa fa-times"></i></button>
+          </div>
+          <div class="with-buttons">{{resztvevo.name}}</div>
         </li>
       </ul>
     </div>
