@@ -81,9 +81,11 @@ angular.module('jalagatiJoga', [
     $httpProvider.interceptors.push(function() {
       return {
         'request': function(config) {
-          var LastChunk = config.url.split('/').splice(-1)[0];
-          if(LastChunk.indexOf('.') === -1) {
-            config.url = BackendServiceURL + config.url;
+          if (config.url) {
+            var LastChunk = config.url.split('/').splice(-1)[0];
+            if(LastChunk.indexOf('.') === -1) {
+              config.url = BackendServiceURL + config.url;
+            }
           }
           return config;
         }

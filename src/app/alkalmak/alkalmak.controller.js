@@ -62,10 +62,10 @@ angular.module(['jalagatiJoga'])
       $location.search('city', $scope.alkalom.location);
       $location.path('/jogasok');
     };
-    $scope.addResztvevo = function addResztvevo(resztvevo, alkalom) {
-      alkalom.$addResztvevo({jogasId: resztvevo._id});
+    $scope.addResztvevo = function addResztvevo(jogas, alkalom) {
+      alkalom.$addResztvevo({jogasId: jogas._id});
     };
     $scope.removeResztvevo = function(resztvevo, alkalom){
-      alkalom.$removeResztvevo({jogasId: resztvevo._id});
+      alkalom.$removeResztvevo({resztvevoId: resztvevo.resztvevo});
     };
   });
