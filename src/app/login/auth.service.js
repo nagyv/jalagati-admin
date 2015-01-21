@@ -16,7 +16,7 @@ angular.module('jalagatiJoga')
     };
     return this;
   })
-  .factory('AuthService', function ($http, Session) {
+  .factory('AuthService', function ($http, Session, alertify) {
     var authService = {};
 
     authService.login = function (credentials) {
@@ -25,6 +25,8 @@ angular.module('jalagatiJoga')
         .then(function (res) {
           Session.create(res.data.id, res.data.name, res.data.token);
           return res.data;
+        }, function(){
+          alertify.error('Hibás bejelentkezés');
         });
     };
 
@@ -32,8 +34,11 @@ angular.module('jalagatiJoga')
       return $http
         .post('/auth/signup', credentials)
         .then(function (res) {
+          alertify.success("Sikeres regisztrálás");
           Session.create(res.data.id, res.data.name, res.data.token);
           return res.data;
+        }, function(){
+          alertify.error('Hibás regisztrálás');
         });
     };
 

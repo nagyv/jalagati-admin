@@ -61,7 +61,7 @@ angular.module(['jalagatiJoga'])
     $scope.location = '';
     $scope.alkalmak = Alkalom.query();
   })
-  .controller('AlkalomController', function ($scope, $routeParams, $window, Jogas, $location, Alkalom, Resztvevo, varosok, SharedState) {
+  .controller('AlkalomController', function ($scope, $routeParams, $window, Jogas, alertify, $location, Alkalom, Resztvevo, varosok, SharedState) {
     $scope.alkalom = Alkalom.get({'id': $routeParams.alkalomId});
     $scope.jogasok = Jogas.query();
     $scope.varosok = varosok;
@@ -87,6 +87,7 @@ angular.module(['jalagatiJoga'])
         data[key] = resztvevo[key];
       });
       resztvevo.$update(data).then(function(data){
+        alertify.success("Módosítások elmentve");
         SharedState.turnOff('editResztvevo');
       });
     };

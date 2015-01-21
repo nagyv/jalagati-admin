@@ -10,7 +10,7 @@ angular.module(['jalagatiJoga'])
     });
     return Jogas;
   })
-  .controller('JogasokCtrl', function JogasokController($scope, $location, Jogas, varosok) {
+  .controller('JogasokCtrl', function JogasokController($scope, $location, Jogas, varosok, alertify) {
     $scope.jogasok = Jogas.query();
     $scope.varosok = varosok;
     $scope.search = $scope.location = '';
@@ -21,6 +21,7 @@ angular.module(['jalagatiJoga'])
     $scope.addJogas = function (jogas) {
       var j = new Jogas(jogas);
       j.$save(function (value) {
+        alertify.success("Módosítások elmentve");
         if($location.search().next) {
           $location.path($location.search().next);
         } else {
@@ -29,22 +30,22 @@ angular.module(['jalagatiJoga'])
       });
     };
   })
-  .controller('JogasCtrl', function JogasCtrl($scope, $routeParams, Jogas, varosok) {
+  .controller('JogasCtrl', function JogasCtrl($scope, $routeParams, Jogas, varosok, alertify) {
     $scope.jogas = Jogas.get({id: $routeParams.jogasId});
     $scope.varosok = varosok;
     $scope.save = function save(jogas) {
       $scope.jogas.$save({}, function (data) {
-//        Global.addMessage("Módosítások elmentve");
+        alertify.success("Módosítások elmentve");
         $scope.back();
       });
     };
   })
-  .controller('BerletCtrl', function BerletCtrl($scope, $routeParams, Jogas) {
+  .controller('BerletCtrl', function BerletCtrl($scope, $routeParams, Jogas, alertify) {
     $scope.jogas = Jogas.get({id: $routeParams.jogasId});
     $scope.$window = $window;
     $scope.save = function (berlet) {
       $scope.jogas.$ujBerlet(berlet, function (data) {
-//      Global.addMessage("Bérlet elmentve");
+        alertify.success("Módosítások elmentve");
         $scope.back();
       });
     };
