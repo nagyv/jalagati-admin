@@ -1,6 +1,6 @@
 'use strict';
 
-var BackendServiceURL = 'https://jogaadmin.herokuapp.com';
+var BackendServiceURL = 'http://127.0.0.1:8000';
 
 angular.module('jalagatiJoga', [
   'ngRoute',
@@ -81,9 +81,11 @@ angular.module('jalagatiJoga', [
     $httpProvider.interceptors.push(function() {
       return {
         'request': function(config) {
-          var LastChunk = config.url.split('/').splice(-1)[0];
-          if(LastChunk.indexOf('.') === -1) {
-            config.url = BackendServiceURL + config.url;
+          if (config.url) {
+            var LastChunk = config.url.split('/').splice(-1)[0];
+            if(LastChunk.indexOf('.') === -1) {
+              config.url = BackendServiceURL + config.url;
+            }
           }
           return config;
         }
@@ -103,11 +105,14 @@ angular.module('jalagatiJoga', [
       }
     };
   })
-  .controller('ApplicationController', function ($scope, $rootScope, USER_ROLES, AuthService) {
+  .controller('ApplicationController', function ($scope, $rootScope, $window, USER_ROLES, AuthService) {
     $scope.sidebarUrl = 'app/pages/sidebar.html';
     $scope.currentUser = null;
     $scope.userRoles = USER_ROLES;
     $scope.isAuthorized = AuthService.isAuthorized;
+    $scope.back = function() {
+      $window.history.back();
+    };
 
     $rootScope.setCurrentUser = function (user) {
       $scope.currentUser = user;

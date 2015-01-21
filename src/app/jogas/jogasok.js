@@ -29,23 +29,23 @@ angular.module(['jalagatiJoga'])
       });
     };
   })
-  .controller('JogasCtrl', function JogasCtrl($scope, $routeParams, $window, Jogas, varosok) {
+  .controller('JogasCtrl', function JogasCtrl($scope, $routeParams, Jogas, varosok) {
     $scope.jogas = Jogas.get({id: $routeParams.jogasId});
     $scope.varosok = varosok;
     $scope.save = function save(jogas) {
       $scope.jogas.$save({}, function (data) {
 //        Global.addMessage("Módosítások elmentve");
-        $window.history.back();
+        $scope.back();
       });
     };
   })
-  .controller('BerletCtrl', function BerletCtrl($scope, $routeParams, $window, Jogas) {
+  .controller('BerletCtrl', function BerletCtrl($scope, $routeParams, Jogas) {
     $scope.jogas = Jogas.get({id: $routeParams.jogasId});
-    $scope.window = $window;
+    $scope.$window = $window;
     $scope.save = function (berlet) {
       $scope.jogas.$ujBerlet(berlet, function (data) {
 //      Global.addMessage("Bérlet elmentve");
-        $window.history.back();
+        $scope.back();
       });
     };
   })

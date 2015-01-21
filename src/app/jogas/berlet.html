@@ -15,7 +15,7 @@
     </div>
     <div class="form-group">
       <button class="btn btn-primary" ng-click="save(berlet)">Ok</button>
-      <a ng-click="window.history.back()">Mégse</a>
+      <a ng-click="back()">Mégse</a>
     </div>
   </form>
 
@@ -23,7 +23,7 @@
   <ul>
     <li ng-repeat="berlet in jogas.berletek">
       <div ng-show="{{berlet.alkalmak}}">Alkalmak: {{berlet.alkalmak}}</div>
-      <div ng-hide="{{berlet.alkalmak}}">Időszak: {{berlet.startDate | date }}-{{berlet.endDate | date }}</div>
+      <div>Időszak: {{berlet.startDate | date }}-{{berlet.endDate | date }}</div>
       <div>Felhasználva: {{berlet.felhasznalva.length}}</div>
     </li>
   </ul>
