@@ -25,9 +25,18 @@ angular.module(['jalagatiJoga'])
       'action': '@action'
     }, {
       'addResztvevo': {'method': 'POST', 'params': {'action': 'addResztvevo', jogasId: true}},
-      'removeResztvevo': {'method': 'POST', 'params': {'action': 'removeResztvevo', jogasId: true}}
+      'removeResztvevo': {'method': 'POST', 'params': {'action': 'removeResztvevo', resztvevoId: true}}
     });
     return Alkalom;
+  })
+  .factory('Resztvevo', function($resource){
+    var Resztvevo = $resource('/resztvevok/:id/:action', {
+      'id': '@_id',
+      'action': '@action'
+    }, {
+      'update': {'method': 'POST', 'params': {'action': 'update'}}
+    });
+    return Resztvevo;
   })
   .controller('UjAlkalomController', function($scope, $location, Alkalom, jogatartok, varosok){
     var _nextHour = nextHour().toDate();
@@ -52,10 +61,11 @@ angular.module(['jalagatiJoga'])
     $scope.location = '';
     $scope.alkalmak = Alkalom.query();
   })
-  .controller('AlkalomController', function ($scope, $routeParams, $window, Jogas, $location, Alkalom, varosok) {
+  .controller('AlkalomController', function ($scope, $routeParams, $window, Jogas, $location, Alkalom, Resztvevo, varosok, SharedState) {
     $scope.alkalom = Alkalom.get({'id': $routeParams.alkalomId});
     $scope.jogasok = Jogas.query();
     $scope.varosok = varosok;
+    SharedState.initialize($scope, 'editResztvevo', false);
     $scope.addJogas = function(search) {
       $location.search('next', $location.path());
       $location.search('name', search);
@@ -67,5 +77,17 @@ angular.module(['jalagatiJoga'])
     };
     $scope.removeResztvevo = function(resztvevo, alkalom){
       alkalom.$removeResztvevo({resztvevoId: resztvevo.resztvevo});
+    };
+    $scope.editResztvevo = function(resztvevoId) {
+      $scope.resztvevo = Resztvevo.get({'id': resztvevoId});
+    };
+    $scope.updateResztvevo = function(resztvevo) {
+      var data = {};
+      angular.forEach(['szamla', 'torulkozo', 'kupon', 'note', 'fizetett'], function(key){
+        data[key] = resztvevo[key];
+      });
+      resztvevo.$update(data).then(function(data){
+        SharedState.turnOff('editResztvevo');
+      });
     };
   });

@@ -34,9 +34,57 @@
           <div class="list-group-text">{{resztvevo.name}}</div>
           <div class="pull-right">
             <button ng-click="removeResztvevo(resztvevo, alkalom)" class="btn btn-warning"><i class="fa fa-times"></i></button>
+            <button class="btn btn-default" ui-turn-on="editResztvevo" ng-click="editResztvevo(resztvevo.resztvevo)"><i class="fa fa-pencil-square-o"></i></button>
           </div>
         </li>
       </ul>
+    </div>
+  </div>
+  <div ui-content-for="modals">
+    <div class="modal modal-overlay" ui-if='editResztvevo' ui-state='editResztvevo'>
+      <div class="modal-dialog">
+        <form class="modal-content" role="form" ng-submit="updateResztvevo(resztvevo)">
+          <div class="modal-header">
+            <button class="close"
+                    ui-turn-off="editResztvevo">&times;</button>
+            <h4 class="modal-title">Résztvevő szerkesztése: {{resztvevo.jogas.name}}</h4>
+          </div>
+          <div class="modal-body">
+            <div class="checkbox disabled">
+              <label>
+                <input type="checkbox" ng-model="resztvevo.berlet" disabled/> Bérlet
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="resztvevo.torulkozo"/> Törülköző
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="resztvevo.szamla"/> Számla
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="resztvevo.kupon"/> Kupon
+              </label>
+            </div>
+            <div class="form-group">
+              <label for="fizetett">Összeg</label>
+              <input id="fizetett" class="form-control" ng-model="resztvevo.fizetett" type="number"/>
+            </div>
+            <div class="form-group">
+              <label for="note">Megjegyzés</label>
+              <textarea id="note" class="form-control" ng-model="resztvevo.note"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button ui-turn-off="editResztvevo" class="btn btn-default">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </section>
