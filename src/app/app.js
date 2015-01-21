@@ -53,11 +53,10 @@ angular.module('jalagatiJoga', [
       });
   })
   .value('redirectToAfterLogin', { url: '/' })
-  .run(function ($rootScope, $http, AUTH_EVENTS, AuthService, $location, redirectToAfterLogin) {
+  .run(function ($rootScope, $http, $route, AUTH_EVENTS, AuthService) {
     $rootScope.$on('$routeChangeStart', function (event, current) {
       if (!AuthService.isAuthorized(current.data && current.data.public)) {
         event.preventDefault();
-        redirectToAfterLogin.url = current.url;
         if (AuthService.isAuthenticated()) {
           // user is not allowed
           $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
@@ -68,7 +67,7 @@ angular.module('jalagatiJoga', [
       }
     });
     $rootScope.$on(AUTH_EVENTS.loginSuccess, function(event) {
-      $location.path(redirectToAfterLogin.url);
+      $route.reload();
     });
   })
   .config(function ($httpProvider) {
@@ -104,6 +103,9 @@ angular.module('jalagatiJoga', [
         return $q.reject(response);
       }
     };
+  })
+  .factory('alertify', function alertifyFactory(){
+    return alertify;
   })
   .controller('ApplicationController', function ($scope, $rootScope, $window, USER_ROLES, AuthService) {
     $scope.sidebarUrl = 'app/pages/sidebar.html';

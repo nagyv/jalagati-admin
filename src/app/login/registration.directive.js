@@ -8,7 +8,7 @@ angular.module(['jalagatiJoga'])
         'setCurrentUser': '&'
       },
       templateUrl: 'app/login/registration-form.html',
-      controller: function($scope, $rootScope, AuthService) {
+      controller: function($scope, $rootScope, AuthService, alertify) {
         $scope.credentials = {
           username: '',
           password: '',
