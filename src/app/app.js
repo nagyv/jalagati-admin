@@ -1,6 +1,6 @@
 'use strict';
 
-var BackendServiceURL = 'http://127.0.0.1:8000';
+var BackendServiceURL = 'https://jogaadmin.herokuapp.com';
 
 angular.module('jalagatiJoga', [
   'ngRoute',
