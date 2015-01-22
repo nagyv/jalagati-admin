@@ -43,7 +43,7 @@
   <div ui-content-for="modals">
     <div class="modal modal-overlay" ui-if='editResztvevo' ui-state='editResztvevo'>
       <div class="modal-dialog">
-        <form class="modal-content" role="form" ng-submit="updateResztvevo(resztvevo)">
+        <form class="modal-content" name="editResztvevoForm" role="form" ng-submit="updateResztvevo(resztvevo)">
           <div class="modal-header">
             <button class="close"
                     ui-turn-off="editResztvevo">&times;</button>
@@ -55,28 +55,34 @@
                 <input type="checkbox" ng-model="resztvevo.berlet" disabled/> Bérlet
               </label>
             </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" ng-model="resztvevo.torulkozo"/> Törülköző
-              </label>
+            <div ng-class="{ error: editResztvevoForm.torulkozo.$invalid }">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="torulkozo" ng-model="resztvevo.torulkozo"/> Törülköző
+                </label>
+              </div>
             </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" ng-model="resztvevo.szamla"/> Számla
-              </label>
+            <div ng-class="{ error: editResztvevoForm.szamla.$invalid }">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="szamla" ng-model="resztvevo.szamla"/> Számla
+                </label>
+              </div>
             </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" ng-model="resztvevo.kupon"/> Kupon
-              </label>
+            <div ng-class="{ error: editResztvevoForm.kupon.$invalid }">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="kupon" ng-model="resztvevo.kupon"/> Kupon
+                </label>
+              </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-class="{ error: editResztvevoForm.fizetett.$invalid }">
               <label for="fizetett">Összeg</label>
-              <input id="fizetett" class="form-control" ng-model="resztvevo.fizetett" type="number"/>
+              <input id="fizetett" name="fizetett" class="form-control" ng-model="resztvevo.fizetett" type="number"/>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-class="{ error: editResztvevoForm.note.$invalid }">
               <label for="note">Megjegyzés</label>
-              <textarea id="note" class="form-control" ng-model="resztvevo.note"></textarea>
+              <textarea id="note" name="note" class="form-control" ng-model="resztvevo.note"></textarea>
             </div>
           </div>
           <div class="modal-footer">
