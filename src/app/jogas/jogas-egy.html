@@ -18,6 +18,10 @@
       <label for="jogas-city">Város:</label>
       <select id="jogas-city" class="form-control" ng-model="jogas.city" ng-options="l for l in varosok" ng-required="true"></select>
     </div>
+    <div class="form-group">
+      <label for="jogas-note">Egyéb:</label>
+      <textarea id="jogas-note" class="form-control" ng-model="jogas.note" placeholder="Hogyan talált ide? Van-e valami sérülése?"></textarea>
+    </div>
     <button class="btn btn-primary" ng-click="save(jogas)">Ment</button>
     <button type="reset" class="btn btn-warning">Mégse</button>
     <a ng-href="#/jogasok/{{jogas._id}}/berlet" class="btn">Bérletek</a>

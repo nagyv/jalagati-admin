@@ -47,6 +47,10 @@
           <label for="jogas-city">Város:</label>
           <select id="jogas-city" class="form-control" ng-model="jogas.city" ng-options="l for l in varosok" ng-required="true"></select>
         </div>
+        <div class="form-group">
+          <label for="jogas-note">Egyéb:</label>
+          <textarea id="jogas-note" class="form-control" ng-model="jogas.note" placeholder="Hogyan talált ide? Van-e valami sérülése?"></textarea>
+        </div>
         <button type="submit" class="btn btn-primary">Add</button>
       </form>
     </div>
