@@ -42,7 +42,6 @@ angular.module(['jalagatiJoga'])
   })
   .controller('BerletCtrl', function BerletCtrl($scope, $routeParams, Jogas, alertify, httpErrorHandler) {
     $scope.jogas = Jogas.get({id: $routeParams.jogasId});
-    $scope.$window = $window;
     $scope.save = function (berlet) {
       $scope.jogas.$ujBerlet(berlet, function (data) {
         alertify.success("Módosítások elmentve");
