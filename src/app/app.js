@@ -1,6 +1,6 @@
 'use strict';
 
-var BackendServiceURL = 'https://jogaadmin.herokuapp.com';
+var BackendServiceURL = 'http://127.0.0.1:8000';
 
 angular.module('jalagatiJoga', [
   'ngRoute',
@@ -53,6 +53,13 @@ angular.module('jalagatiJoga', [
       });
   })
   .value('redirectToAfterLogin', { url: '/' })
+  .value('arak', {
+    alkalom: 900,
+    berletHavi: 8000,
+    berlet10: 7500,
+    berletFelev: 40000,
+    berlet40: 30000
+  })
   .run(function ($rootScope, $http, $route, AUTH_EVENTS, AuthService) {
     $rootScope.$on('$routeChangeStart', function (event, current) {
       if (!AuthService.isAuthorized(current.data && current.data.public)) {

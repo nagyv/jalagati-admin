@@ -40,13 +40,37 @@ angular.module(['jalagatiJoga'])
       }, httpErrorHandler);
     };
   })
-  .controller('BerletCtrl', function BerletCtrl($scope, $routeParams, Jogas, alertify, httpErrorHandler) {
+  .controller('BerletCtrl', function BerletCtrl($scope, $routeParams, Jogas, arak, alertify, httpErrorHandler) {
     $scope.jogas = Jogas.get({id: $routeParams.jogasId});
     $scope.save = function (berlet) {
       $scope.jogas.$ujBerlet(berlet, function (data) {
         alertify.success("Módosítások elmentve");
         $scope.back();
       }, httpErrorHandler);
+    };
+    $scope.setHaviBerlet = function(){
+      $scope.berlet = {
+        alkalmak: null,
+        startDate: moment().toDate(),
+        endDate: moment().add(30, 'days').toDate(),
+        fizetett: arak.berletHavi
+      };
+    };
+    $scope.set10Berlet = function() {
+      $scope.berlet = {
+        alkalmak: 10,
+        startDate: moment().toDate(),
+        endDate: moment().add(3, 'months').toDate(),
+        fizetett: arak.berlet10
+      };
+    };
+    $scope.setFelevesBerlet = function() {
+      $scope.berlet = {
+        alkalmak: null,
+        startDate: moment().toDate(),
+        endDate: moment().add(6, 'months').toDate(),
+        fizetett: arak.berletFelev
+      };
     };
   })
   .controller('JogasAlkalmakController', function JogasAlkalmakController($scope, $routeParams, Jogas){
