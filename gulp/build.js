@@ -145,3 +145,5 @@ gulp.task('clean', function (done) {
 });
 
 gulp.task('build', ['html', 'images', 'fonts', 'misc']);
+
+gulp.task('release', ['inject-dist-server', 'build']);

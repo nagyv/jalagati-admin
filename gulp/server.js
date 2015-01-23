@@ -1,7 +1,6 @@
 'use strict';
 
 var gulp = require('gulp');
-
 var util = require('util');
 
 var browserSync = require('browser-sync');
@@ -32,7 +31,7 @@ function browserSyncInit(baseDir, files, browser) {
 
 }
 
-gulp.task('serve', ['watch'], function () {
+gulp.task('serve', ['inject-server', 'watch'], function () {
   browserSyncInit([
     'src',
     '.tmp'

@@ -107,6 +107,18 @@ angular.module('jalagatiJoga', [
   .factory('alertify', function alertifyFactory(){
     return alertify;
   })
+  .factory('httpErrorHandler', function httpErrorHandler(alertify){
+    return function(data){
+  //        angular.forEach(data.data.validation.keys, function(key){
+  //          $scope.editResztvevoForm[key].$setValidity("default1", false);
+  //        });
+      try {
+        alertify.error("Sikertelen mentés: " + data.data.validation.keys.join(", "));
+      } catch(e) {
+        alertify.error("Sikertelen mentés");
+      }
+    };
+  })
   .controller('ApplicationController', function ($scope, $rootScope, $window, USER_ROLES, AuthService) {
     $scope.sidebarUrl = 'app/pages/sidebar.html';
     $scope.currentUser = null;

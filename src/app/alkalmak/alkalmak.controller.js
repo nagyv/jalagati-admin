@@ -1,5 +1,10 @@
 'use strict';
 
+//{ statusCode: 400,
+//  error: 'Bad Request',
+//  message: 'fizetett is required',
+//  validation: { source: 'query', keys: [ 'fizetett' ] } }
+
 function nextHour(offset) {
   var now = moment();
   if (offset !== undefined) {
@@ -34,7 +39,8 @@ angular.module(['jalagatiJoga'])
       'id': '@_id',
       'action': '@action'
     }, {
-      'update': {'method': 'POST', 'params': {'action': 'update'}}
+      'update': {'method': 'POST', 'params': {'action': 'update'}},
+      'removeBerlet': {'method': 'POST', 'params': {'action': 'removeBerlet'}}
     });
     return Resztvevo;
   })
@@ -61,7 +67,7 @@ angular.module(['jalagatiJoga'])
     $scope.location = '';
     $scope.alkalmak = Alkalom.query();
   })
-  .controller('AlkalomController', function ($scope, $routeParams, $window, Jogas, alertify, $location, Alkalom, Resztvevo, varosok, SharedState) {
+  .controller('AlkalomController', function ($scope, $routeParams, $window, Jogas, alertify, $location, Alkalom, Resztvevo, varosok, SharedState, httpErrorHandler) {
     $scope.alkalom = Alkalom.get({'id': $routeParams.alkalomId});
     $scope.jogasok = Jogas.query();
     $scope.varosok = varosok;
@@ -73,10 +79,10 @@ angular.module(['jalagatiJoga'])
       $location.path('/jogasok');
     };
     $scope.addResztvevo = function addResztvevo(jogas, alkalom) {
-      alkalom.$addResztvevo({jogasId: jogas._id});
+      alkalom.$addResztvevo({jogasId: jogas._id}).catch(httpErrorHandler);
     };
     $scope.removeResztvevo = function(resztvevo, alkalom){
-      alkalom.$removeResztvevo({resztvevoId: resztvevo.resztvevo});
+      alkalom.$removeResztvevo({resztvevoId: resztvevo.resztvevo}).catch(httpErrorHandler);
     };
     $scope.editResztvevo = function(resztvevoId) {
       $scope.resztvevo = Resztvevo.get({'id': resztvevoId});
@@ -89,6 +95,11 @@ angular.module(['jalagatiJoga'])
       resztvevo.$update(data).then(function(data){
         alertify.success("Módosítások elmentve");
         SharedState.turnOff('editResztvevo');
-      });
+      }, httpErrorHandler);
+    };
+    $scope.removeBerlet = function(resztvevo) {
+      resztvevo.$removeBerlet().then(function(data){
+        alertify.success("Bérlet használata törölve");
+      }, httpErrorHandler);
     };
   });
