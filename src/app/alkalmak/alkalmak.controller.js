@@ -39,7 +39,8 @@ angular.module(['jalagatiJoga'])
       'id': '@_id',
       'action': '@action'
     }, {
-      'update': {'method': 'POST', 'params': {'action': 'update'}}
+      'update': {'method': 'POST', 'params': {'action': 'update'}},
+      'removeBerlet': {'method': 'POST', 'params': {'action': 'removeBerlet'}}
     });
     return Resztvevo;
   })
@@ -94,6 +95,11 @@ angular.module(['jalagatiJoga'])
       resztvevo.$update(data).then(function(data){
         alertify.success("Módosítások elmentve");
         SharedState.turnOff('editResztvevo');
+      }, httpErrorHandler);
+    };
+    $scope.removeBerlet = function(resztvevo) {
+      resztvevo.$removeBerlet().then(function(data){
+        alertify.success("Bérlet használata törölve");
       }, httpErrorHandler);
     };
   });

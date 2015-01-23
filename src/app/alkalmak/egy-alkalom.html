@@ -52,7 +52,7 @@
           <div class="modal-body">
             <div class="checkbox disabled">
               <label>
-                <input type="checkbox" ng-model="resztvevo.berlet" disabled/> Bérlet
+                <input type="checkbox" ng-checked="resztvevo.berlet" disabled/> Bérlet <button type="button" ng-click="removeBerlet(resztvevo)" ng-if="resztvevo.berlet" title="Nem használja"><i class="fa fa-chain-broken"></i></button>
               </label>
             </div>
             <div ng-class="{ error: editResztvevoForm.torulkozo.$invalid }">
