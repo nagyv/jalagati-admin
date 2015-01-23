@@ -141,9 +141,9 @@ gulp.task('misc', function () {
 });
 
 gulp.task('clean', function (done) {
-  $.del(['dist/', '.tmp/'], done);
+  $.del(['dist/*', '.tmp/', '!dist/.git/', '!dist/CNAME'], done);
 });
 
 gulp.task('build', ['html', 'images', 'fonts', 'misc']);
 
-gulp.task('release', ['inject-dist-server', 'build']);
+gulp.task('release', ['inject-dist-server', 'clean', 'build']);
