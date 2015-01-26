@@ -29,6 +29,8 @@ angular.module(['jalagatiJoga'])
       'id': '@_id',
       'action': '@action'
     }, {
+      'close': {'method': 'POST', 'params': {'action': 'close'}},
+      'saveFinal': {'method': 'POST', 'params': {'action': 'saveFinal'}},
       'addResztvevo': {'method': 'POST', 'params': {'action': 'addResztvevo', jogasId: true}},
       'removeResztvevo': {'method': 'POST', 'params': {'action': 'removeResztvevo', resztvevoId: true}}
     });
@@ -50,12 +52,14 @@ angular.module(['jalagatiJoga'])
     $scope.varosok = varosok;
     $scope.ujAlkalom = {
       tartja: null,
-      segit: $scope.currentUser.name,
+      segiti: $scope.currentUser.name,
       date: _nextHour,
       time: _nextHour
     };
     $scope.setupAlkalom = function (alkalom) {
       alkalom.starts = moment(alkalom.date.toISOString().split('T')[0] + ' ' + alkalom.time.toLocaleTimeString()).toDate();
+      delete alkalom.date;
+      delete alkalom.time;
       alkalom = new Alkalom(alkalom);
       alkalom.$save(function (value) {
         $location.path('/alkalmak/' + value._id);
@@ -67,7 +71,8 @@ angular.module(['jalagatiJoga'])
     $scope.location = '';
     $scope.alkalmak = Alkalom.query();
   })
-  .controller('AlkalomController', function ($scope, $routeParams, $window, Jogas, alertify, $location, Alkalom, Resztvevo, varosok, SharedState, httpErrorHandler) {
+  .controller('AlkalomController', function ($scope, $routeParams, $window, Jogas, alertify, $location, Alkalom,
+                                             Resztvevo, varosok, SharedState, httpErrorHandler) {
     $scope.alkalom = Alkalom.get({'id': $routeParams.alkalomId});
     $scope.jogasok = Jogas.query();
     $scope.varosok = varosok;
@@ -101,5 +106,26 @@ angular.module(['jalagatiJoga'])
       resztvevo.$removeBerlet().then(function(data){
         alertify.success("Bérlet használata törölve");
       }, httpErrorHandler);
+    };
+  })
+  .controller('ResztvevoListController', function($scope, $q, Resztvevo, $routeParams){
+    $scope.resztvevok = Resztvevo.query({'alkalom': $routeParams.alkalomId});
+    $scope.getTotal = function(resztvevok) {
+      var szamitott;
+      szamitott = _.reduce(resztvevok, function(szamitott, resztvevo){
+        return szamitott + resztvevo.fizetett;
+      }, $scope.alkalom.nyito);
+      return szamitott;
+    };
+    $scope.getExtra = function(resztvevok) {
+      return $scope.alkalom.zaro - $scope.getTotal(resztvevok);
+    };
+    $scope.saveMoney = function() {
+      var data = {
+        nyito: $scope.alkalom.nyito,
+        zaro: $scope.alkalom.zaro,
+        extra: $scope.getExtra($scope.resztvevok)
+      };
+      $scope.alkalom.$saveFinal(data);
     };
   });

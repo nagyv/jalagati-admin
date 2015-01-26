@@ -1,7 +1,7 @@
-<section class="section container-fluid">
+<section class="section container-fluid" ng-if="alkalom.state=='open'">
   <div class="row">
-    <h2>{{alkalom.starts | date:'medium' }} - {{alkalom.location}} / {{alkalom.tartja}}</h2>
     <div class="col-xs-12">
+      <h2>{{alkalom.starts | date:'medium' }} - {{alkalom.location}} / {{alkalom.tartja}}</h2>
       <form class="form-inline">
         <div class="form-group col-xs-4">
           <label for="filter" class="sr-only">Szűrés</label>
@@ -39,6 +39,9 @@
         </li>
       </ul>
     </div>
+  </div>
+  <div ui-content-for="navbar">
+    <button class="btn btn-default" type="button" ng-click="alkalom.$close()"><i class="fa fa-lock"></i>Lezár</button>
   </div>
   <div ui-content-for="modals">
     <div class="modal modal-overlay" ui-if='editResztvevo' ui-state='editResztvevo'>
@@ -92,6 +95,49 @@
         </form>
       </div>
     </div>
+  </div>
+</section>
+<section class="section container-fluid" ng-if="alkalom.state=='closed'" ng-controller="ResztvevoListController">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2><i class="fa fa-lock"></i> {{alkalom.starts | date:'medium' }} - {{alkalom.location}} / {{alkalom.tartja}}</h2>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Nyitó</th>
+          <th>Számított</th>
+          <th>Záró</th>
+          <th>Extra</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><input class="form-control" type="number" ng-model="alkalom.nyito"/></td>
+          <td><input class="form-control" type="number" disabled value="{{getTotal(resztvevok)}}" /></td>
+          <td><input class="form-control" type="number" ng-model="alkalom.zaro"/></td>
+          <td><input class="form-control" type="number" disabled value="{{getExtra(resztvevok)}}" /></td>
+        </tr>
+        </tbody>
+      </table>
+      <h3>Bevételek</h3>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Név</th>
+          <th>Összeg</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="resztvevo in resztvevok">
+          <td>{{resztvevo.jogas.name}}</td>
+          <td>{{resztvevo.fizetett}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div ui-content-for="navbar">
+    <button class="btn btn-default" type="button" ng-click="saveMoney()"><i class="fa fa-save"></i>Ment</button>
   </div>
 </section>
 
