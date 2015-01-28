@@ -46,7 +46,7 @@ angular.module(['jalagatiJoga'])
     });
     return Resztvevo;
   })
-  .controller('UjAlkalomController', function($scope, $location, Alkalom, jogatartok, varosok){
+  .controller('UjAlkalomController', function($scope, $location, Alkalom, jogatartok, varosok, httpErrorHandler){
     var _nextHour = nextHour().toDate();
     $scope.jogatartok = jogatartok;
     $scope.varosok = varosok;
@@ -63,7 +63,7 @@ angular.module(['jalagatiJoga'])
       alkalom = new Alkalom(alkalom);
       alkalom.$save(function (value) {
         $location.path('/alkalmak/' + value._id);
-      });
+      }, httpErrorHandler);
     };
   })
   .controller('AlkalomListaController', function ($scope, Alkalom, varosok) {
