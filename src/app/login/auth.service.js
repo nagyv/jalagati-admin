@@ -34,7 +34,7 @@ angular.module('jalagatiJoga')
       return $http
         .post('/auth/signup', credentials)
         .then(function (res) {
-          alertify.success("Sikeres regisztrálás");
+          alertify.success('Sikeres regisztrálás');
           Session.create(res.data.id, res.data.name, res.data.token);
           return res.data;
         }, function(){

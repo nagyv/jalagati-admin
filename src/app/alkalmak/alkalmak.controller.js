@@ -97,14 +97,14 @@ angular.module(['jalagatiJoga'])
       angular.forEach(['szamla', 'torulkozo', 'kupon', 'note', 'fizetett'], function(key){
         data[key] = resztvevo[key];
       });
-      resztvevo.$update(data).then(function(data){
-        alertify.success("Módosítások elmentve");
+      resztvevo.$update(data).then(function(/*data*/){
+        alertify.success('Módosítások elmentve');
         SharedState.turnOff('editResztvevo');
       }, httpErrorHandler);
     };
     $scope.removeBerlet = function(resztvevo) {
-      resztvevo.$removeBerlet().then(function(data){
-        alertify.success("Bérlet használata törölve");
+      resztvevo.$removeBerlet().then(function(/*data*/){
+        alertify.success('Bérlet használata törölve');
       }, httpErrorHandler);
     };
   })

@@ -1,7 +1,7 @@
 <section class="section container-fluid">
   <h1>{{jogas.name}} adatai</h1>
 
-  <form name="editJogasForm" role="form">
+  <form name="editJogasForm" role="form" ng-submit="save(jogas)">
     <div class="form-group">
       <label for="jogas-name">Név</label>
       <input id="jogas-name" name="name" class="form-control" type="text" value="{{jogas.name}}" ng-model="jogas.name" ng-required="true"/>
@@ -22,7 +22,7 @@
       <label for="jogas-note">Egyéb:</label>
       <textarea id="jogas-note" name="note" class="form-control" ng-model="jogas.note" placeholder="Hogyan talált ide? Van-e valami sérülése?"></textarea>
     </div>
-    <button class="btn btn-primary" ng-click="save(jogas)">Ment</button>
+    <button class="btn btn-primary">Ment</button>
     <button type="reset" class="btn btn-warning">Mégse</button>
     <a ng-href="#/jogasok/{{jogas._id}}/berlet" class="btn">Bérletek</a>
     <a href="#/jogasok/{{jogas._id}}/alkalmak" class="btn">Történet</a>

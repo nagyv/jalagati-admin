@@ -1,6 +1,6 @@
 'use strict';
 
-var BackendServiceURL = 'https://jogaadmin.herokuapp.com';
+var BackendServiceURL = 'http://127.0.0.1:8000';
 
 angular.module('jalagatiJoga', [
   'ngRoute',
@@ -73,7 +73,7 @@ angular.module('jalagatiJoga', [
         }
       }
     });
-    $rootScope.$on(AUTH_EVENTS.loginSuccess, function(event) {
+    $rootScope.$on(AUTH_EVENTS.loginSuccess, function(/*event*/) {
       $route.reload();
     });
   })
@@ -120,9 +120,9 @@ angular.module('jalagatiJoga', [
   //          $scope.editResztvevoForm[key].$setValidity("default1", false);
   //        });
       try {
-        alertify.error("Sikertelen mentés: " + data.data.validation.keys.join(", "));
+        alertify.error('Sikertelen mentés: ' + data.data.validation.keys.join(', '));
       } catch(e) {
-        alertify.error("Sikertelen mentés");
+        alertify.error('Sikertelen mentés');
       }
     };
   })

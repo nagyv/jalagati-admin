@@ -21,7 +21,7 @@ angular.module(['jalagatiJoga'])
     $scope.addJogas = function (jogas) {
       var j = new Jogas(jogas);
       j.$save(function (value) {
-        alertify.success("Módosítások elmentve");
+        alertify.success('Módosítások elmentve');
         if($location.search().next) {
           $location.path($location.search().next);
         } else {
@@ -34,8 +34,8 @@ angular.module(['jalagatiJoga'])
     $scope.jogas = Jogas.get({id: $routeParams.jogasId});
     $scope.varosok = varosok;
     $scope.save = function save(jogas) {
-      $scope.jogas.$save({}, function (data) {
-        alertify.success("Módosítások elmentve");
+      jogas.$save({}, function (/*data*/) {
+        alertify.success('Módosítások elmentve');
         $scope.back();
       }, httpErrorHandler);
     };
@@ -43,8 +43,8 @@ angular.module(['jalagatiJoga'])
   .controller('BerletCtrl', function BerletCtrl($scope, $routeParams, Jogas, arak, alertify, httpErrorHandler) {
     $scope.jogas = Jogas.get({id: $routeParams.jogasId});
     $scope.save = function (berlet) {
-      $scope.jogas.$ujBerlet(berlet, function (data) {
-        alertify.success("Módosítások elmentve");
+      $scope.jogas.$ujBerlet(berlet, function (/*data*/) {
+        alertify.success('Módosítások elmentve');
         $scope.back();
       }, httpErrorHandler);
     };
