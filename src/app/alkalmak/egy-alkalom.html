@@ -100,7 +100,7 @@
 <section class="section container-fluid" ng-if="alkalom.state=='closed'" ng-controller="ResztvevoListController">
   <div class="row">
     <div class="col-xs-12">
-      <h2><i class="fa fa-lock"></i> {{alkalom.starts | date:'medium' }} - {{alkalom.location}} / {{alkalom.tartja}}</h2>
+      <h2><i class="fa fa-lock"></i> {{alkalom.starts | date:'medium' }} - {{alkalom.location}} / {{alkalom.tartja}} <button class="btn btn-primary" type="button" ng-click="saveMoney()"><i class="fa fa-save"></i>Ment</button></h2>
       <table class="table">
         <thead>
         <tr>
@@ -135,9 +135,6 @@
         </tbody>
       </table>
     </div>
-  </div>
-  <div ui-content-for="navbar">
-    <button class="btn btn-default" type="button" ng-click="saveMoney()"><i class="fa fa-save"></i>Ment</button>
   </div>
 </section>
 
