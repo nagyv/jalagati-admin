@@ -6,7 +6,8 @@ angular.module('jalagatiJoga', [
   'ngRoute',
   'ngResource',
   'mobile-angular-ui',
-  'restangular'
+  'restangular',
+  'ngActivityIndicator'
 ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -60,6 +61,21 @@ angular.module('jalagatiJoga', [
     berletFelev: 40000,
     berlet40: 30000
   })
+  .service('nvActivityIndicator', function($activityIndicator){
+    var counter = 0;
+    return {
+      startAnimating: function(){
+        counter += 1;
+        $activityIndicator.startAnimating();
+      },
+      stopAnimating: function() {
+        counter -= 1;
+        if(counter === 0) {
+          $activityIndicator.stopAnimating();
+        }
+      }
+    };
+  })
   .run(function ($rootScope, $http, $route, AUTH_EVENTS, AuthService) {
     $rootScope.$on('$routeChangeStart', function (event, current) {
       if (!AuthService.isAuthorized(current.data && current.data.public)) {
@@ -84,16 +100,21 @@ angular.module('jalagatiJoga', [
         return $injector.get('AuthInterceptor');
       }
     ]);
-    $httpProvider.interceptors.push(function() {
+    $httpProvider.interceptors.push(function(nvActivityIndicator) {
       return {
         'request': function(config) {
           if (config.url) {
+            nvActivityIndicator.startAnimating();
             var LastChunk = config.url.split('/').splice(-1)[0];
             if(LastChunk.indexOf('.') === -1) {
               config.url = BackendServiceURL + config.url;
             }
           }
           return config;
+        },
+        'response': function(response){
+          nvActivityIndicator.stopAnimating();
+          return response;
         }
       };
     });

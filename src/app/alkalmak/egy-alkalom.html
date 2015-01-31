@@ -40,9 +40,6 @@
       </ul>
     </div>
   </div>
-  <div ui-content-for="navbar">
-    <button class="btn btn-default" type="button" ng-click="alkalom.$close()"><i class="fa fa-lock"></i>Lezár</button>
-  </div>
   <div ui-content-for="modals">
     <div class="modal modal-overlay" ui-if='editResztvevo' ui-state='editResztvevo'>
       <div class="modal-dialog">
@@ -95,6 +92,9 @@
         </form>
       </div>
     </div>
+  </div>
+  <div ui-content-for="navbar">
+    <button class="btn btn-warning" type="button" ng-click="alkalom.$close()"><i class="fa fa-lock"></i>Lezár</button>
   </div>
 </section>
 <section class="section container-fluid" ng-if="alkalom.state=='closed'" ng-controller="ResztvevoListController">
