@@ -1,0 +1,58 @@
+<section class="section container-fluid">
+  <div class="row">
+    <div class="col-xs-6">
+      <h3>Jógázók</h3>
+      <div class="col-xs-12">
+          <form class="form-inline">
+          <div class="form-group col-xs-6">
+            <label for="filter" class="sr-only">Szűrés</label>
+            <input id="filter" class="form-control" type="text" autofocus ng-model="search">
+          </div>
+          <div class="form-group col-xs-6">
+            <label for="varos-filter" class="sr-only">Városok</label>
+            <select id="varos-filter" class="form-control" ng-model="location" ng-options="l for l in varosok">
+              <option value="">--</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <ul class="col-xs-12 list-group">
+        <li class="list-group-item clearfix" ng-repeat="jogas in jogasok | filter: location | filter:search | orderBy:name">
+          <div class="list-group-item-text">{{jogas.name}} <span ng-if="jogas.nick"> ({{jogas.nick}})</span></div>
+          <div class="pull-right">
+            <a ng-href="#/jogasok/{{jogas._id}}" class="btn btn-default"><i class="fa fa-user"></i> Adatok</a>
+            <a ng-href="#/jogasok/{{jogas._id}}/berlet" class="btn btn-default"><i class="fa fa-star-half"></i>Bérletek</a>
+            <a href="#/jogasok/{{jogas._id}}/alkalmak" class="btn btn-default"><i class="fa fa-calendar"></i>Történet</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="col-xs-6">
+      <h3>Új jógázó</h3>
+
+      <form name="addJogasForm" role="form" ng-submit="addJogas(jogas)" ng-hide="search">
+        <div class="form-group">
+          <label for="jogas-name">Név</label>
+          <input id="jogas-name" name="name" class="form-control" type="text" value="{{jogas.name}}" ng-model="jogas.name" ng-required="true"/>
+        </div>
+        <div class="form-group">
+          <label for="jogas-nick">Becenév</label>
+          <input id="jogas-nick" name="nick" class="form-control" type="text" value="{{jogas.nick}}" ng-model="jogas.nick"/>
+        </div>
+        <div class="form-group">
+          <label for="jogas-email">E-mail</label>
+          <input id="jogas-email" name="email" class="form-control" type="text" value="{{jogas.email}}" ng-model="jogas.email"/>
+        </div>
+        <div class="form-group">
+          <label for="jogas-city">Város:</label>
+          <select id="jogas-city" name="city" class="form-control" ng-model="jogas.city" ng-options="l for l in varosok" ng-required="true"></select>
+        </div>
+        <div class="form-group">
+          <label for="jogas-note">Egyéb:</label>
+          <textarea id="jogas-note" name="note" class="form-control" ng-model="jogas.note" placeholder="Hogyan talált ide? Van-e valami sérülése?"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </form>
+    </div>
+  </div>
+</section>
