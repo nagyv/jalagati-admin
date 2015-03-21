@@ -1,0 +1,7 @@
+#sidebar>div {
+  background: #555;
+  transition: width 400ms ease;
+}
+#sidebar>div.is_closed {
+  width: 2%;
+}
