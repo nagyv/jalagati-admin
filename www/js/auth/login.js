@@ -35,6 +35,7 @@ angular.module(['bk-auth'])
         // Perform the login action when the user submits the login form
         $scope.doLogin = function(credentials) {
           bkAuthService.login(credentials);
+          return false;
         };
       }
     };

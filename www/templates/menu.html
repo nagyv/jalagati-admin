@@ -32,5 +32,19 @@
         </ion-item>
       </ion-list>
     </ion-content>
+    <ion-footer-bar align-title="left" class="bar-assertive">
+      <div ng-if="user">
+        <h1 class="title">{{user.name}}</h1>
+        <div class="buttons">
+          <button class="button" ng-click="logout()">Logout</button>
+        </div>
+      </div>
+      <div ng-if="!user">
+        <div class="buttons pull-right">
+          <button class="button" ng-click="login()">Login</button>
+          <a class="button" ui-sref="register">Register</a>
+        </div>
+      </div>
+    </ion-footer-bar>
   </ion-side-menu>
 </ion-side-menus>

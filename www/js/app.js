@@ -20,17 +20,16 @@ angular.module('starter', ['ionic', 'bk-auth', 'starter.controllers'])
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
+  .state('register', {
+    url: '/register',
+    templateUrl: 'templates/register.html'
+  })
 
   .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
-  })
-
-  .state('register', {
-    url: '/register',
-    templateUrl: 'templates/register.html'
   })
 
   .state('app.search', {
