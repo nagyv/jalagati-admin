@@ -29,7 +29,7 @@ angular.module('bkAuth', ['bk-progress', 'http-auth-interceptor', 'LocalStorageM
         })
         .error(function(){
           $rootScope.$broadcast('event:auth-login-failed', status);
-          bkProgress.showText(false, 100000, "Hibás bejelentkezés");
+          bkProgress.showText(false, 100000, 'Hibás bejelentkezés');
         });
     };
 
