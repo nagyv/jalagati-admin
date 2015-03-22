@@ -2,7 +2,7 @@
 
 var BackendServiceURL = 'http://127.0.0.1:8000';
 
-angular.module('starter', ['ionic', 'bkAuth', 'starter.controllers'])
+angular.module('starter', ['ionic', 'bk-auth', 'starter.controllers'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

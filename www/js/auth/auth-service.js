@@ -1,10 +1,11 @@
 'use strict';
 
-angular.module('bkAuth', ['bk-progress', 'http-auth-interceptor', 'LocalStorageModule'])
+angular.module('bk-auth', ['bk-progress', 'http-auth-interceptor', 'LocalStorageModule'])
   .constant('AUTH_EVENTS', {
-    loginSuccess: 'auth-login-success',
-    loginFailed: 'auth-login-failed',
-    logoutSuccess: 'auth-logout-success',
+    loginRequired: 'event:auth-loginRequired',
+    loginSuccess: 'event:auth-loginConfirmed',
+    loginFailed: 'event:auth-login-failed',
+    logoutSuccess: 'event:auth-logout-complete',
     sessionTimeout: 'auth-session-timeout',
     notAuthenticated: 'auth-not-authenticated',
     notAuthorized: 'auth-not-authorized'

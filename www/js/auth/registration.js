@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module(['bkAuth'])
+angular.module(['bk-auth'])
   .directive('bkRegistrationForm', function () {
     return {
       restrict: 'E',
