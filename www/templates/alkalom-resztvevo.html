@@ -7,23 +7,37 @@
   </ion-header-bar>
   <ion-content>
     <form class="list" name="editResztvevoForm" role="form" ng-submit="updateResztvevo(resztvevo)">
-      <label class="item item-input item-toggle">
-        <input type="checkbox" ng-checked="resztvevo.berlet" disabled/> Bérlet <button type="button" ng-click="removeBerlet(resztvevo)" ng-if="resztvevo.berlet" title="Nem használja"><i class="fa fa-chain-broken"></i></button>
+      <label class="item item-checkbox">
+        <span class="checkbox">
+          <input type="checkbox" ng-checked="resztvevo.berlet" disabled/>
+        </span>
+        Bérlet
+        <button type="button" ng-click="removeBerlet(resztvevo)" ng-if="resztvevo.berlet" title="Nem használja"><i class="icon ion-backspace-outline"></i></button>
       </label>
-      <label ng-class="{ error: editResztvevoForm.torulkozo.$invalid }" class="item item-input item-checkbox">
-        <input type="checkbox" name="torulkozo" ng-model="resztvevo.torulkozo"/> Törülköző
+      <label ng-class="{ error: editResztvevoForm.torulkozo.$invalid }" class="item item-checkbox">
+        <span class="checkbox">
+          <input type="checkbox" name="torulkozo" ng-model="resztvevo.torulkozo"/>
+        </span>
+        Törülköző
       </label>
-      <label ng-class="{ error: editResztvevoForm.szamla.$invalid }" class="item item-input item-toggle">
-        <input type="checkbox" name="szamla" ng-model="resztvevo.szamla"/> Számla
+      <label ng-class="{ error: editResztvevoForm.kupon.$invalid }" class="item item-checkbox">
+        <span class="checkbox">
+          <input type="checkbox" name="kupon" ng-model="resztvevo.kupon"/>
+        </span>
+        Kupon
       </label>
-      <label ng-class="{ error: editResztvevoForm.kupon.$invalid }" class="item item-input item-checkbox">
-        <input type="checkbox" name="kupon" ng-model="resztvevo.kupon"/> Kupon
+      <label ng-class="{ error: editResztvevoForm.szamla.$invalid }" class="item item-checkbox">
+        <span class="checkbox">
+          <input type="checkbox" name="szamla" ng-model="resztvevo.szamla"/>
+        </span>
+        Számla
       </label>
       <label class="item item-input">
-        Összeg
+        <span class="input-label">Összeg</span>
         <input id="fizetett" name="fizetett" ng-model="resztvevo.fizetett" type="number"/>
       </label>
-      <label ng-class="{ error: editResztvevoForm.note.$invalid }" class="item item-input">Megjegyzés
+      <label ng-class="{ error: editResztvevoForm.note.$invalid }" class="item item-input item-stacked-label">
+        <span class="input-label">Megjegyzés</span>
         <textarea id="note" name="note" class="form-control" ng-model="resztvevo.note"></textarea>
       </label>
       <div class="item">

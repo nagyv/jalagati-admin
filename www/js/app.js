@@ -2,7 +2,7 @@
 
 var BackendServiceURL = 'http://127.0.0.1:8000';
 
-angular.module('starter', ['ionic', 'bk-auth', 'bk-joga-alkalom', 'bk-joga-jogas', 'bk-app'])
+angular.module('starter', ['ionic', 'bk-auth', 'bk-joga-alkalom', 'bk-joga-jogas', 'bk-app', 'LocalStorageModule'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -100,4 +100,8 @@ angular.module('starter', ['ionic', 'bk-auth', 'bk-joga-alkalom', 'bk-joga-jogas
         }
       };
     });
+  }).run(function($http, localStorageService){
+    var token = '0e4d64ddc4c79acf61ceace3713a3563dbc7cc81';
+    $http.defaults.headers.common.Authorization = 'Bearer ' + token;
+    localStorageService.set('authorizationToken', token); // Step 2
   });
