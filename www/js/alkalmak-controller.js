@@ -79,11 +79,10 @@ angular.module('bk-joga-alkalom', ['ngResource', 'bk-progress'])
     $scope.alkalmak = Alkalom.query();
   })
   .controller('AlkalomController', function ($scope, $stateParams, $window, Jogas, alertify, $location, Alkalom,
-                                             Resztvevo, varosok, SharedState, httpErrorHandler) {
+                                             Resztvevo, varosok, httpErrorHandler) {
     $scope.alkalom = Alkalom.get({'id': $stateParams.alkalomId});
     $scope.jogasok = Jogas.query();
     $scope.varosok = varosok;
-    SharedState.initialize($scope, 'editResztvevo', false);
     $scope.addJogas = function(search) {
       $location.search('next', $location.path());
       $location.search('name', search);
@@ -106,7 +105,6 @@ angular.module('bk-joga-alkalom', ['ngResource', 'bk-progress'])
       });
       resztvevo.$update(data).then(function(/*data*/){
         alertify.success('Módosítások elmentve');
-        SharedState.turnOff('editResztvevo');
       }, httpErrorHandler);
     };
     $scope.removeBerlet = function(resztvevo) {

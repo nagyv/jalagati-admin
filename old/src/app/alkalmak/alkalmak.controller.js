@@ -99,7 +99,6 @@ angular.module(['jalagatiJoga'])
       });
       resztvevo.$update(data).then(function(/*data*/){
         alertify.success('Módosítások elmentve');
-        SharedState.turnOff('editResztvevo');
       }, httpErrorHandler);
     };
     $scope.removeBerlet = function(resztvevo) {

@@ -1,166 +1,40 @@
 <ion-view view-title="{{alkalom.starts | date:'medium' }} - {{alkalom.location}} / {{alkalom.tartja}}">
   <ion-content>
-      <form>
-        <formset class="list">
-          <legend>Szűrés</legend>
-        </formset>
-      <div class="list">
-
-        <label for="filter" class="sr-only">Szűrés</label>
-        <input id="filter" class="form-control" type="text" autofocus ng-model="search">
-      </div>
-      <div class="form-group col-xs-4">
-        <label for="varos-filter" class="sr-only">Városok</label>
-        <select id="varos-filter" class="form-control" ng-model="location" ng-options="l for l in varosok">
-          <option value="">--</option>
-        </select>
-      </div>
-      <div class="form-group col-xs-4">
-        <button ng-click="addJogas(search)" ng-show="search" class="btn btn-primary">Új jógázó</button>
-      </div>
-    </form>
     <div class="row">
-
+      <div class="col">
+        <form class="list">
+          <div class="item item-input-inset">
+            <label class="item-input-wrapper">
+              <input id="filter" type="text" placeholder="Szűrés" autofocus ng-model="search">
+              <select id="varos-filter" ng-model="location" ng-options="l for l in varosok">
+                <option value="">--</option>
+              </select>
+            </label>
+            <button ng-click="addJogas(search)" ng-show="search" class="button button-small button-positive">Új jógázó</button>
+          </div>
+        </form>
+        <ul class="list">
+          <li class="item item-button-right" ng-repeat="jogas in jogasok | filter:location | filter:search | orderBy:name">
+            {{jogas.name}}
+            <div class="buttons">
+              <button ng-click="addResztvevo(jogas, alkalom)" class="button button-positive"><i class="fa fa-check"></i>Választ</button>
+              <a ng-href="#/app/jogasok/{{jogas._id}}/berlet" class="button"><i class="fa fa-star-half"></i>Bérletek</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>Résztvevők:</h3>
+        <ul class="list">
+          <li class="item item-button-right" ng-repeat="resztvevo in alkalom.resztvevok | orderBy:name">
+            {{resztvevo.name}}
+            <div class="buttons">
+              <button class="button" ui-turn-on="editResztvevo" ng-click="editResztvevo(resztvevo.resztvevo)"><i class="fa fa-pencil-square-o"></i></button>
+              <button ng-click="removeResztvevo(resztvevo, alkalom)" class="button button-warning"><i class="fa fa-times"></i></button>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </ion-content>
 </ion-view>
-<section class="section container-fluid" ng-if="alkalom.state=='open'">
-  <div class="row">
-    <div class="col-xs-12">
-      <h2>{{alkalom.starts | date:'medium' }} - {{alkalom.location}} / {{alkalom.tartja}}</h2>
-      <form class="form-inline">
-        <div class="form-group col-xs-4">
-          <label for="filter" class="sr-only">Szűrés</label>
-          <input id="filter" class="form-control" type="text" autofocus ng-model="search">
-        </div>
-        <div class="form-group col-xs-4">
-          <label for="varos-filter" class="sr-only">Városok</label>
-          <select id="varos-filter" class="form-control" ng-model="location" ng-options="l for l in varosok">
-            <option value="">--</option>
-          </select>
-        </div>
-        <div class="form-group col-xs-4">
-          <button ng-click="addJogas(search)" ng-show="search" class="btn btn-primary">Új jógázó</button>
-        </div>
-      </form>
-    </div>
-    <ul class="col-xs-6 list-group">
-      <li class="list-group-item clearfix" ng-repeat="jogas in jogasok | filter:location | filter:search | orderBy:name">
-        <div class="list-group-text">{{jogas.name}}</div>
-        <div class="pull-right">
-          <a ng-click="addResztvevo(jogas, alkalom)" class="btn btn-primary"><i class="fa fa-check"></i>Választ</a>
-          <a ng-href="#/jogasok/{{jogas._id}}/berlet" class="btn btn-default"><i class="fa fa-star-half"></i>Bérletek</a>
-        </div>
-      </li>
-    </ul>
-    <div class="col-xs-6">
-      <h3>Résztvevők:</h3>
-      <ul class="list-group">
-        <li class="list-group-item clearfix" ng-repeat="resztvevo in alkalom.resztvevok | orderBy:name">
-          <div class="list-group-text">{{resztvevo.name}}</div>
-          <div class="pull-right">
-            <button class="btn btn-default" ui-turn-on="editResztvevo" ng-click="editResztvevo(resztvevo.resztvevo)"><i class="fa fa-pencil-square-o"></i></button>
-            <button ng-click="removeResztvevo(resztvevo, alkalom)" class="btn btn-warning"><i class="fa fa-times"></i></button>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div ui-content-for="modals">
-    <div class="modal modal-overlay" ui-if='editResztvevo' ui-state='editResztvevo'>
-      <div class="modal-dialog">
-        <form class="modal-content" name="editResztvevoForm" role="form" ng-submit="updateResztvevo(resztvevo)">
-          <div class="modal-header">
-            <button class="close"
-                    ui-turn-off="editResztvevo">&times;</button>
-            <h4 class="modal-title">Résztvevő szerkesztése: {{resztvevo.jogas.name}}</h4>
-          </div>
-          <div class="modal-body">
-            <div class="checkbox disabled">
-              <label>
-                <input type="checkbox" ng-checked="resztvevo.berlet" disabled/> Bérlet <button type="button" ng-click="removeBerlet(resztvevo)" ng-if="resztvevo.berlet" title="Nem használja"><i class="fa fa-chain-broken"></i></button>
-              </label>
-            </div>
-            <div ng-class="{ error: editResztvevoForm.torulkozo.$invalid }">
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" name="torulkozo" ng-model="resztvevo.torulkozo"/> Törülköző
-                </label>
-              </div>
-            </div>
-            <div ng-class="{ error: editResztvevoForm.szamla.$invalid }">
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" name="szamla" ng-model="resztvevo.szamla"/> Számla
-                </label>
-              </div>
-            </div>
-            <div ng-class="{ error: editResztvevoForm.kupon.$invalid }">
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" name="kupon" ng-model="resztvevo.kupon"/> Kupon
-                </label>
-              </div>
-            </div>
-            <div class="form-group" ng-class="{ error: editResztvevoForm.fizetett.$invalid }">
-              <label for="fizetett">Összeg</label>
-              <input id="fizetett" name="fizetett" class="form-control" ng-model="resztvevo.fizetett" type="number"/>
-            </div>
-            <div class="form-group" ng-class="{ error: editResztvevoForm.note.$invalid }">
-              <label for="note">Megjegyzés</label>
-              <textarea id="note" name="note" class="form-control" ng-model="resztvevo.note"></textarea>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button ui-turn-off="editResztvevo" class="btn btn-default">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  <div ui-content-for="navbar">
-    <button class="btn btn-warning" type="button" ng-click="alkalom.$close()"><i class="fa fa-lock"></i>Lezár</button>
-  </div>
-</section>
-<section class="section container-fluid" ng-if="alkalom.state=='closed'" ng-controller="ResztvevoListController">
-  <div class="row">
-    <div class="col-xs-12">
-      <h2><i class="fa fa-lock"></i> {{alkalom.starts | date:'medium' }} - {{alkalom.location}} / {{alkalom.tartja}} <button class="btn btn-primary" type="button" ng-click="saveMoney()"><i class="fa fa-save"></i>Ment</button></h2>
-      <table class="table">
-        <thead>
-        <tr>
-          <th>Nyitó</th>
-          <th>Számított</th>
-          <th>Záró</th>
-          <th>Extra</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td><input class="form-control" type="number" ng-model="alkalom.nyito"/></td>
-          <td><input class="form-control" type="number" disabled value="{{getTotal(resztvevok)}}" /></td>
-          <td><input class="form-control" type="number" ng-model="alkalom.zaro"/></td>
-          <td><input class="form-control" type="number" disabled value="{{getExtra(resztvevok)}}" /></td>
-        </tr>
-        </tbody>
-      </table>
-      <h3>Bevételek</h3>
-      <table class="table table-striped">
-        <thead>
-        <tr>
-          <th>Név</th>
-          <th>Összeg</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="resztvevo in resztvevok">
-          <td>{{resztvevo.jogas.name}}</td>
-          <td>{{resztvevo.fizetett}}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
