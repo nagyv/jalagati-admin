@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('starter.controllers', ['bk-auth'])
+angular.module('bk-app', ['bk-auth'])
 
 .controller('AppCtrl', function($scope, bkLogin, bkAuthService, AUTH_EVENTS) {
   $scope.$on(AUTH_EVENTS.loginRequired, function() {
@@ -16,17 +16,3 @@ angular.module('starter.controllers', ['bk-auth'])
     bkAuthService.logout();
   };
 })
-
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
-})
-
-.controller('PlaylistCtrl', function($scope, $stateParams) {
-});

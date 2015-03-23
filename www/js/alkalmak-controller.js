@@ -78,9 +78,9 @@ angular.module('bk-joga-alkalom', ['ngResource', 'bk-progress'])
     $scope.location = '';
     $scope.alkalmak = Alkalom.query();
   })
-  .controller('AlkalomController', function ($scope, $routeParams, $window, Jogas, alertify, $location, Alkalom,
+  .controller('AlkalomController', function ($scope, $stateParams, $window, Jogas, alertify, $location, Alkalom,
                                              Resztvevo, varosok, SharedState, httpErrorHandler) {
-    $scope.alkalom = Alkalom.get({'id': $routeParams.alkalomId});
+    $scope.alkalom = Alkalom.get({'id': $stateParams.alkalomId});
     $scope.jogasok = Jogas.query();
     $scope.varosok = varosok;
     SharedState.initialize($scope, 'editResztvevo', false);
@@ -115,8 +115,8 @@ angular.module('bk-joga-alkalom', ['ngResource', 'bk-progress'])
       }, httpErrorHandler);
     };
   })
-  .controller('ResztvevoListController', function($scope, $q, Resztvevo, $routeParams){
-    $scope.resztvevok = Resztvevo.query({'alkalom': $routeParams.alkalomId});
+  .controller('ResztvevoListController', function($scope, $q, Resztvevo, $stateParams){
+    $scope.resztvevok = Resztvevo.query({'alkalom': $stateParams.alkalomId});
     $scope.getTotal = function(resztvevok) {
       var szamitott;
       szamitott = _.reduce(resztvevok, function(szamitott, resztvevo){

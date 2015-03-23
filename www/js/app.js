@@ -2,7 +2,7 @@
 
 var BackendServiceURL = 'http://127.0.0.1:8000';
 
-angular.module('starter', ['ionic', 'bk-auth', 'bk-joga-alkalom', 'starter.controllers'])
+angular.module('starter', ['ionic', 'bk-auth', 'bk-joga-alkalom', 'bk-app'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -41,31 +41,22 @@ angular.module('starter', ['ionic', 'bk-auth', 'bk-joga-alkalom', 'starter.contr
       }
     }
   })
-
-  .state('app.browse', {
-    url: '/browse',
+  .state('app.alkalmak', {
+    url: '/alkalmak',
     views: {
       'menuContent': {
-        templateUrl: 'templates/browse.html'
+        templateUrl: 'templates/alkalmak-lista.html',
+        controller: 'AlkalomListaController'
       }
     }
   })
-    .state('app.alkalmak', {
-      url: '/alkalmak',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/alkalmak-lista.html',
-          controller: 'AlkalomListaController'
-        }
-      }
-    })
 
-  .state('app.single', {
-    url: '/playlists/:playlistId',
+  .state('app.alkalom', {
+    url: '/alkalmak/:alkalomId',
     views: {
       'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+        templateUrl: 'templates/alkalom.html',
+        controller: 'AlkalomController'
       }
     }
   });
