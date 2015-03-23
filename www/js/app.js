@@ -2,7 +2,7 @@
 
 var BackendServiceURL = 'http://127.0.0.1:8000';
 
-angular.module('starter', ['ionic', 'bk-auth', 'starter.controllers'])
+angular.module('starter', ['ionic', 'bk-auth', 'bk-joga-alkalom', 'starter.controllers'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -32,11 +32,12 @@ angular.module('starter', ['ionic', 'bk-auth', 'starter.controllers'])
     controller: 'AppCtrl'
   })
 
-  .state('app.search', {
-    url: '/search',
+  .state('app.uj', {
+    url: '/uj',
     views: {
       'menuContent': {
-        templateUrl: 'templates/search.html'
+        templateUrl: 'templates/uj-alkalom-form.html',
+        controller: 'UjAlkalomController'
       }
     }
   })
@@ -49,12 +50,12 @@ angular.module('starter', ['ionic', 'bk-auth', 'starter.controllers'])
       }
     }
   })
-    .state('app.playlists', {
-      url: '/playlists',
+    .state('app.alkalmak', {
+      url: '/alkalmak',
       views: {
         'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
+          templateUrl: 'templates/alkalmak-lista.html',
+          controller: 'AlkalomListaController'
         }
       }
     })
@@ -69,13 +70,13 @@ angular.module('starter', ['ionic', 'bk-auth', 'starter.controllers'])
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/alkalmak');
 })
   .config(function ($httpProvider) {
     $httpProvider.interceptors.push(function() {
       return {
         'request': function(config) {
-          if (config.url) {
+          if (config.url && !config.url.startsWith('http')) {
 //            nvActivityIndicator.startAnimating();
             var LastChunk = config.url.split('/').splice(-1)[0];
             if(LastChunk.indexOf('.') === -1) {

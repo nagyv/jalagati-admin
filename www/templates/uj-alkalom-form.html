@@ -1,0 +1,36 @@
+<ion-view view-title="Új alkalom indítása">
+  <ion-content>
+    <form name="addAlkalomForm" role="form" ng-submit="setupAlkalom(ujAlkalom)">
+      <div class="list">
+        <label class="item item-input item-select">
+          <div class="input-label">Jógatartó</div>
+          <select id="jogatarto" name="tartja" autofocus ng-model="ujAlkalom.tartja" ng-required="true"
+                  ng-options="j for j in jogatartok"></select>
+        </label>
+        <label class="item item-input">
+          <span>Segítő</span>
+          <input id="segito" name="segit" type="text" placeholder="Segítő" ng-model="ujAlkalom.segiti">
+        </label>
+        <label class="item item-input item-select">
+          <div class="input-label">Helyszín</div>
+          <select id="helyszin" name="location" class="form-control" ng-model="ujAlkalom.location" ng-required="true"
+                  ng-options="l for l in varosok"></select>
+        </label>
+        <label class="row item item-input">
+            <div class="col">Dátum</div>
+            <div class="col">
+              <input id="datum" name="starts" type="date" class="form-control" ng-model="ujAlkalom.date" required="required">
+            </div>
+            <div class="col">
+              <input id="idopont" type="time" placeholder="Időpont" class="form-control" ng-model="ujAlkalom.time" required="required">
+            </div>
+        </label>
+        <label class="item">
+          <button type="submit" class="button button-block button-positive">Mehet</button>
+          <a ui-sref="app.alkalmak">Alkalmak</a>
+        </label>
+      </div>
+
+    </form>
+  </ion-content>
+</ion-view>

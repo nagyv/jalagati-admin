@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['bk-auth'])
 
 .controller('AppCtrl', function($scope, bkLogin, bkAuthService, AUTH_EVENTS) {
   $scope.$on(AUTH_EVENTS.loginRequired, function() {

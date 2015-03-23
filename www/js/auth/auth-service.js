@@ -17,12 +17,12 @@ angular.module('bk-auth', ['bk-progress', 'http-auth-interceptor', 'LocalStorage
         .success(function (data) {
           $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
 
-          $http.defaults.headers.common.Authorization = data.token;  // Step 1
+          $http.defaults.headers.common.Authorization = 'Bearer ' + data.token;
           localStorageService.set('authorizationToken', data.token); // Step 2
           $rootScope.closeLogin();
 
           authService.loginConfirmed(data, function(config) {  // Step 3
-            config.headers.Authorization = data.token;
+            config.headers.Authorization = 'Bearer ' + data.token;
             return config;
           });
           return data;
@@ -37,7 +37,7 @@ angular.module('bk-auth', ['bk-progress', 'http-auth-interceptor', 'LocalStorage
       return $http
         .post('/auth/signup', credentials, { ignoreAuthModule: true })
         .success(function (data) {
-          $http.defaults.headers.common.Authorization = data.token;  // Step 1
+          $http.defaults.headers.common.Authorization = 'Bearer ' + data.token;  // Step 1
           localStorageService.set('authorizationToken', data.token); // Step 2
 
           authService.loginConfirmed(data, function(config) {  // Step 3

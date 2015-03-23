@@ -11,4 +11,14 @@ angular.module('bk-progress', [])
         alertify.error(text);
       }
     };
-  });
+  })
+  .factory('httpErrorHandler', function(alertify) {
+    return function(data){
+      try {
+        alertify.error('Sikertelen mentés: ' + data.data.validation.keys.join(', '));
+      } catch(e) {
+        alertify.error('Sikertelen mentés');
+      }
+    };
+  })
+;
