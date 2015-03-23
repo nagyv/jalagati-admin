@@ -15,4 +15,4 @@ angular.module('bk-app', ['bk-auth'])
   $scope.logout = function(){
     bkAuthService.logout();
   };
-})
+});
