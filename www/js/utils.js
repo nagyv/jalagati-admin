@@ -1,16 +1,16 @@
 'use strict';
 
 // mocking $cordovaProgress for web testing
-angular.module('bk-progress', [])
-  .factory('alertify', function alertifyFactory(){
-    return alertify;
-  })
-  .factory('bkProgress', function(alertify){
+angular.module('bk-progress', ['ngCordova'])
+  .factory('alertify', function alertifyFactory($cordovaProgress){
     return {
-      showText: function(toStay, timeout, text) {
-        alertify.error(text);
+      error: function(message) {
+        $cordovaProgress.showText(false, 100000, message)
       }
     };
+  })
+  .factory('bkProgress', function($cordovaProgress){
+    return $cordovaProgress;
   })
   .factory('httpErrorHandler', function(alertify) {
     return function(data){

@@ -2,7 +2,7 @@
 
 var BackendServiceURL = 'https://jogaadmin.herokuapp.com';
 
-angular.module('starter', ['ionic', 'bk-auth', 'bk-joga-alkalom', 'bk-joga-jogas', 'bk-app'])
+angular.module('starter', ['ionic', 'angular-loading-bar', 'ngCordova', 'bk-auth', 'bk-joga-alkalom', 'bk-joga-jogas', 'bk-app'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -113,7 +113,7 @@ angular.module('starter', ['ionic', 'bk-auth', 'bk-joga-alkalom', 'bk-joga-jogas
   $httpProvider.interceptors.push(function() {
     return {
       'request': function(config) {
-        if (config.url && config.url.indexOf('http') === 0) {
+        if (config.url && config.url.indexOf('http') === -1) {
           var LastChunk = config.url.split('/').splice(-1)[0];
           if(LastChunk.indexOf('.') === -1) {
             config.url = BackendServiceURL + config.url;

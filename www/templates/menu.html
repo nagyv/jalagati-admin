@@ -36,11 +36,9 @@
           <button class="button" ng-click="logout()">Logout</button>
         </div>
       </div>
-      <div ng-if="!user">
-        <div class="buttons pull-right">
-          <a class="button button-stable" ui-sref="register">Register</a>
-          <button class="button button-positive" ng-click="login()">Login</button>
-        </div>
+      <div class="button-bar" ng-if="!user">
+        <a class="button" ui-sref="register">Register</a>
+        <button class="button button-positive" ng-click="login()">Login</button>
       </div>
     </ion-footer-bar>
   </ion-side-menu>
