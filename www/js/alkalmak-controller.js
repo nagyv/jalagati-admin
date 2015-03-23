@@ -79,7 +79,8 @@ angular.module('bk-joga-alkalom', ['ngResource', 'bk-progress'])
     $scope.alkalmak = Alkalom.query();
   })
   .controller('AlkalomController', function ($scope, $stateParams, $window, Jogas, alertify, $location, Alkalom,
-                                             Resztvevo, varosok, httpErrorHandler) {
+                                             Resztvevo, varosok, httpErrorHandler, $ionicModal) {
+    var editModal;
     $scope.alkalom = Alkalom.get({'id': $stateParams.alkalomId});
     $scope.jogasok = Jogas.query();
     $scope.varosok = varosok;
@@ -87,7 +88,7 @@ angular.module('bk-joga-alkalom', ['ngResource', 'bk-progress'])
       $location.search('next', $location.path());
       $location.search('name', search);
       $location.search('city', $scope.alkalom.location);
-      $location.path('/jogasok');
+      $location.path('/app/jogasok');
     };
     $scope.addResztvevo = function addResztvevo(jogas, alkalom) {
       alkalom.$addResztvevo({jogasId: jogas._id}).catch(httpErrorHandler);
@@ -96,22 +97,37 @@ angular.module('bk-joga-alkalom', ['ngResource', 'bk-progress'])
       alkalom.$removeResztvevo({resztvevoId: resztvevo.resztvevo}).catch(httpErrorHandler);
     };
     $scope.editResztvevo = function(resztvevoId) {
-      $scope.resztvevo = Resztvevo.get({'id': resztvevoId});
-    };
-    $scope.updateResztvevo = function(resztvevo) {
-      var data = {};
-      angular.forEach(['szamla', 'torulkozo', 'kupon', 'note', 'fizetett'], function(key){
-        data[key] = resztvevo[key];
+      var $editScope = $scope.$new();
+      $editScope.resztvevo = Resztvevo.get({'id': resztvevoId});
+      $editScope.updateResztvevo = function(resztvevo) {
+        var data = {};
+        angular.forEach(['szamla', 'torulkozo', 'kupon', 'note', 'fizetett'], function(key){
+          data[key] = resztvevo[key];
+        });
+        resztvevo.$update(data).then(function(/*data*/){
+          alertify.success('Módosítások elmentve');
+        }, httpErrorHandler);
+      };
+      $editScope.removeBerlet = function(resztvevo) {
+        resztvevo.$removeBerlet().then(function(/*data*/){
+          alertify.success('Bérlet használata törölve');
+        }, httpErrorHandler);
+      };
+      $editScope.closeEdit = function() {
+        editModal.remove();
+      };
+      $ionicModal.fromTemplateUrl('templates/alkalom-resztvevo.html', {
+        scope: $editScope
+      }).then(function(modal) {
+        editModal = modal;
+        editModal.show();
       });
-      resztvevo.$update(data).then(function(/*data*/){
-        alertify.success('Módosítások elmentve');
-      }, httpErrorHandler);
     };
-    $scope.removeBerlet = function(resztvevo) {
-      resztvevo.$removeBerlet().then(function(/*data*/){
-        alertify.success('Bérlet használata törölve');
-      }, httpErrorHandler);
-    };
+    $scope.$on('$destroy', function() {
+      if(editModal) {
+        editModal.remove();
+      }
+    });
   })
   .controller('ResztvevoListController', function($scope, $q, Resztvevo, $stateParams){
     $scope.resztvevok = Resztvevo.query({'alkalom': $stateParams.alkalomId});

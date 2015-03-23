@@ -1,0 +1,35 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Részletes adatok</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeEdit()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form class="list" name="editResztvevoForm" role="form" ng-submit="updateResztvevo(resztvevo)">
+      <label class="item item-input item-toggle">
+        <input type="checkbox" ng-checked="resztvevo.berlet" disabled/> Bérlet <button type="button" ng-click="removeBerlet(resztvevo)" ng-if="resztvevo.berlet" title="Nem használja"><i class="fa fa-chain-broken"></i></button>
+      </label>
+      <label ng-class="{ error: editResztvevoForm.torulkozo.$invalid }" class="item item-input item-checkbox">
+        <input type="checkbox" name="torulkozo" ng-model="resztvevo.torulkozo"/> Törülköző
+      </label>
+      <label ng-class="{ error: editResztvevoForm.szamla.$invalid }" class="item item-input item-toggle">
+        <input type="checkbox" name="szamla" ng-model="resztvevo.szamla"/> Számla
+      </label>
+      <label ng-class="{ error: editResztvevoForm.kupon.$invalid }" class="item item-input item-checkbox">
+        <input type="checkbox" name="kupon" ng-model="resztvevo.kupon"/> Kupon
+      </label>
+      <label class="item item-input">
+        Összeg
+        <input id="fizetett" name="fizetett" ng-model="resztvevo.fizetett" type="number"/>
+      </label>
+      <label ng-class="{ error: editResztvevoForm.note.$invalid }" class="item item-input">Megjegyzés
+        <textarea id="note" name="note" class="form-control" ng-model="resztvevo.note"></textarea>
+      </label>
+      <div class="item">
+        <button class="button" ng-click="closeEdit()">Close</button>
+        <button type="submit" class="button button-positive">Save changes</button>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>
