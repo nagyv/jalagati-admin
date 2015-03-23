@@ -1,0 +1,28 @@
+<ion-view view-title="{{jogas.name}} adatai">
+  <ion-content>
+    <form name="editJogasForm" role="form" ng-submit="save(jogas)" class="list">
+      <label class="item item-input">
+        <input id="jogas-name" name="name" placeholder="Név" type="text" value="{{jogas.name}}" ng-model="jogas.name" ng-required="true"/>
+      </label>
+      <label class="item item-input">
+        <input id="jogas-nick" name="nick" placeholder="Becenév" type="text" value="{{jogas.nick}}" ng-model="jogas.nick"/>
+      </label>
+      <label class="item item-input">
+        <input id="jogas-email" name="email" placeholder="E-mail" type="text" value="{{jogas.email}}" ng-model="jogas.email"/>
+      </label>
+      <label class="item item-input item-select">
+        <div class="input-label">Város</div>
+        <select id="jogas-city" name="city" ng-model="jogas.city" ng-options="l for l in varosok" ng-required="true"></select>
+      </label>
+      <label class="item item-input">
+        <textarea id="jogas-note" name="note" placeholder="Egyéb" ng-model="jogas.note" placeholder="Hogyan talált ide? Van-e valami sérülése?"></textarea>
+      </label>
+      <div class="item">
+        <button class="button button-positive">Ment</button>
+        <button type="reset" class="button button-light">Mégse</button>
+        <a ng-href="#/app/jogasok/{{jogas._id}}/berlet" class="button">Bérletek</a>
+        <a href="#/app/jogasok/{{jogas._id}}/alkalmak" class="button">Történet</a>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

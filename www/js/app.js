@@ -2,7 +2,7 @@
 
 var BackendServiceURL = 'http://127.0.0.1:8000';
 
-angular.module('starter', ['ionic', 'bk-auth', 'bk-joga-alkalom', 'bk-app'])
+angular.module('starter', ['ionic', 'bk-auth', 'bk-joga-alkalom', 'bk-joga-jogas', 'bk-app'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -50,7 +50,6 @@ angular.module('starter', ['ionic', 'bk-auth', 'bk-joga-alkalom', 'bk-app'])
       }
     }
   })
-
   .state('app.alkalom', {
     url: '/alkalmak/:alkalomId',
     views: {
@@ -58,6 +57,25 @@ angular.module('starter', ['ionic', 'bk-auth', 'bk-joga-alkalom', 'bk-app'])
         templateUrl: 'templates/alkalom.html',
         controller: 'AlkalomController'
       }
+    }
+  })
+
+  .state('app.jogasok', {
+    url: '/jogasok',
+    views: {
+     'menuContent': {
+       templateUrl: 'templates/jogasok-lista.html',
+       controller: 'JogasokCtrl'
+     }
+    }
+  })
+  .state('app.jogas', {
+    url: '/jogasok/:jogasId',
+    views: {
+     'menuContent': {
+       templateUrl: 'templates/jogas-adatok.html',
+       controller: 'JogasCtrl'
+     }
     }
   });
   // if none of the above states are matched, use this as the fallback

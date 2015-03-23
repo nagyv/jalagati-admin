@@ -1,0 +1,52 @@
+<ion-view view-title="Jógázók">
+  <ion-content>
+    <div class="row">
+      <div class="col">
+        <form class="list">
+          <div class="item item-input-inset">
+            <label class="item-input-wrapper">
+              <input id="filter" type="text" placeholder="Szűrés" autofocus ng-model="search">
+              <select id="varos-filter" ng-model="location" ng-options="l for l in varosok">
+                <option value="">--</option>
+              </select>
+            </label>
+          </div>
+        </form>
+        <ul class="list">
+          <li class="item item-button-right" ng-repeat="jogas in jogasok | filter: location | filter:search | orderBy:name">
+            <span>{{jogas.name}} <span ng-if="jogas.nick"> ({{jogas.nick}})</span></span>
+            <div class="buttons">
+              <a ng-href="#/app/jogasok/{{jogas._id}}" class="button"><i class="fa fa-user"></i> Adatok</a>
+              <a ng-href="#/app/jogasok/{{jogas._id}}/berlet" class="button"><i class="fa fa-star-half"></i>Bérletek</a>
+              <a ng-href="#/app/jogasok/{{jogas._id}}/alkalmak" class="button"><i class="fa fa-calendar"></i>Történet</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>Új jógázó</h3>
+        <form name="addJogasForm" class="list" role="form" ng-submit="addJogas(jogas)" ng-hide="search">
+          <label class="item item-input">
+            <input id="jogas-name" name="name" placeholder="Név" type="text" value="{{jogas.name}}" ng-model="jogas.name" ng-required="true"/>
+          </label>
+          <label class="item item-input">
+            <input id="jogas-nick" name="nick" placeholder="Becenév" type="text" value="{{jogas.nick}}" ng-model="jogas.nick"/>
+          </label>
+          <label class="item item-input">
+            <input id="jogas-email" name="email" placeholder="E-mail" type="text" value="{{jogas.email}}" ng-model="jogas.email"/>
+          </label>
+          <label class="item item-input item-select">
+            <div class="input-label">Város</div>
+            <select id="jogas-city" name="city" ng-model="jogas.city" ng-options="l for l in varosok" ng-required="true"></select>
+          </label>
+          <label class="item item-input">
+            <textarea id="jogas-note" name="note" placeholder="Egyéb" ng-model="jogas.note" placeholder="Hogyan talált ide? Van-e valami sérülése?"></textarea>
+          </label>
+          <div class="item">
+            <button class="button button-block button-positive">Ment</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
