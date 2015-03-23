@@ -59,6 +59,15 @@ angular.module('starter', ['ionic', 'bk-auth', 'bk-joga-alkalom', 'bk-joga-jogas
       }
     }
   })
+  .state('app.alkalmakLezart', {
+    url: '/alkalmak/:alkalomId/lezart',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/alkalom-lezart.html',
+        controller: 'ResztvevoListController'
+      }
+    }
+  })
 
   .state('app.jogasokLista', {
     url: '/jogasok',

@@ -79,10 +79,13 @@ angular.module('bk-joga-alkalom', ['ngResource', 'bk-progress'])
     $scope.alkalmak = Alkalom.query();
   })
   .controller('AlkalomController', function ($scope, $stateParams, $window, Jogas, alertify, $location, Alkalom,
-                                             Resztvevo, varosok, httpErrorHandler, $ionicModal) {
+                                             Resztvevo, varosok, httpErrorHandler, $ionicModal, $state) {
     var editModal;
-    // TODO: redirect to summary page if closed
-    $scope.alkalom = Alkalom.get({'id': $stateParams.alkalomId});
+    $scope.alkalom = Alkalom.get({'id': $stateParams.alkalomId}, function(){
+      if($scope.alkalom.state === 'closed') {
+        $state.go('app.alkalmakLezart', {alkalomId: $stateParams.alkalomId});
+      }
+    });
     $scope.jogasok = Jogas.query();
     $scope.varosok = varosok;
     $scope.addJogas = function(search) {
@@ -96,6 +99,11 @@ angular.module('bk-joga-alkalom', ['ngResource', 'bk-progress'])
     };
     $scope.removeResztvevo = function(resztvevo, alkalom){
       alkalom.$removeResztvevo({resztvevoId: resztvevo.resztvevo}).catch(httpErrorHandler);
+    };
+    $scope.close = function(alkalom) {
+      alkalom.$close(function(){
+        $state.go('app.alkalmakLezart', {alkalomId: alkalom._id});
+      });
     };
     $scope.editResztvevo = function(resztvevoId) {
       var $editScope = $scope.$new();
@@ -131,7 +139,12 @@ angular.module('bk-joga-alkalom', ['ngResource', 'bk-progress'])
       }
     });
   })
-  .controller('ResztvevoListController', function($scope, $q, Resztvevo, $stateParams){
+  .controller('ResztvevoListController', function($scope, $q, Resztvevo, Alkalom, $stateParams, $state){
+    $scope.alkalom = Alkalom.get({'id': $stateParams.alkalomId}, function(){
+      if($scope.alkalom.state !== 'closed') {
+        $state.go('app.alkalmakEgy', {alkalomId: $stateParams.alkalomId});
+      }
+    });
     $scope.resztvevok = Resztvevo.query({'alkalom': $stateParams.alkalomId});
     $scope.getTotal = function(resztvevok) {
       var szamitott;

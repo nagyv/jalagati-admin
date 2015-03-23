@@ -3,11 +3,21 @@
     <a class="button icon ion-plus" ui-sref="app.alkalmakUj"></a>
   </ion-nav-buttons>
   <ion-content>
+    <form class="list">
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">
+          <select id="varos-filter" ng-model="location" ng-options="l for l in varosok">
+            <option value="">--</option>
+          </select>
+        </label>
+      </div>
+    </form>
     <ul class="list">
       <li class="item item-icon-right" ng-repeat="alkalom in alkalmak | filter:location | orderBy:starts" class="list-group">
         <a ui-sref="app.alkalmakEgy({alkalomId: alkalom._id})">
           {{alkalom.tartja}}, {{alkalom.location}}, {{alkalom.starts | date:'medium'}}
-          <i class="icon ion-chevron-right"></i>
+          <i ng-if="alkalom.state!='closed'" class="icon ion-chevron-right"></i>
+          <i ng-if="alkalom.state=='closed'" class="icon ion-locked"></i>
         </a>
       </li>
     </ul>

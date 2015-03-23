@@ -1,4 +1,7 @@
 <ion-view view-title="{{alkalom.starts | date:'medium' }} - {{alkalom.location}} / {{alkalom.tartja}}">
+  <ion-nav-buttons side="right">
+    <button class="button button-positive icon-left ion-locked" type="button" ng-click="close(alkalom)">Close</button>
+  </ion-nav-buttons>
   <ion-content>
     <div class="row">
       <div class="col">

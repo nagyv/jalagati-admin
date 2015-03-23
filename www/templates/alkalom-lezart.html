@@ -1,0 +1,45 @@
+<ion-view view-title="{{alkalom.starts | date:'medium' }} - {{alkalom.location}} / {{alkalom.tartja}}">
+  <ion-nav-buttons side="right">
+    <button class="button button-positive icon-left ion-upload" type="button" ng-click="saveMoney()">Save</button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div class="row">
+      <div class="col">
+        <h3>Összesítő</h3>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Nyitó</th>
+            <th>Számított</th>
+            <th>Záró</th>
+            <th>Extra</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td><input type="number" ng-model="alkalom.nyito"/></td>
+            <td><input type="number" disabled value="{{getTotal(resztvevok)}}" /></td>
+            <td><input type="number" ng-model="alkalom.zaro"/></td>
+            <td><input type="number" disabled value="{{getExtra(resztvevok)}}" /></td>
+          </tr>
+          </tbody>
+        </table>
+        <h3>Bevételek</h3>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Név</th>
+            <th>Összeg</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="resztvevo in resztvevok">
+            <td>{{resztvevo.jogas.name}}</td>
+            <td>{{resztvevo.fizetett}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>>
