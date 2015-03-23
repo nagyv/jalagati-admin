@@ -77,6 +77,15 @@ angular.module('starter', ['ionic', 'bk-auth', 'bk-joga-alkalom', 'bk-joga-jogas
        controller: 'JogasCtrl'
      }
     }
+  })
+  .state('app.berlet', {
+    url: '/jogasok/:jogasId/berlet',
+    views: {
+     'menuContent': {
+       templateUrl: 'templates/jogas-berlet.html',
+       controller: 'BerletCtrl'
+     }
+    }
   });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/alkalmak');

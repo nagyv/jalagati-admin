@@ -40,7 +40,7 @@ angular.module('bk-joga-jogas', ['ngResource', 'bk-progress'])
       }, httpErrorHandler);
     };
   })
-  .controller('BerletCtrl', function BerletCtrl($scope, $stateParams, Jogas, arak, alertify, httpErrorHandler) {
+  .controller('BerletCtrl', function BerletCtrl($scope, $stateParams, $ionicHistory, Jogas, arak, alertify, httpErrorHandler) {
     $scope.jogas = Jogas.get({id: $stateParams.jogasId});
     $scope.save = function (berlet) {
       $scope.jogas.$ujBerlet(berlet, function (/*data*/) {
@@ -48,6 +48,7 @@ angular.module('bk-joga-jogas', ['ngResource', 'bk-progress'])
         $scope.back();
       }, httpErrorHandler);
     };
+    $scope.goBack = $ionicHistory.goBack;
     $scope.setHaviBerlet = function(){
       $scope.berlet = {
         alkalmak: null,

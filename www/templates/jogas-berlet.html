@@ -1,0 +1,46 @@
+<ion-view view-title="{{jogas.name}} bérletei">
+  <ion-content>
+    <div class="row">
+      <div class="col">
+        <h2>Korábbi bérletei</h2>
+        <ul class="list">
+          <li class="item" ng-repeat="berlet in jogas.berletek">
+            <div ng-show="{{berlet.alkalmak}}">Alkalmak: {{berlet.alkalmak}}</div>
+            <div>Időszak: {{berlet.startDate | date }}-{{berlet.endDate | date }}</div>
+            <div>Felhasználva: {{berlet.felhasznalva.length}}</div>
+          </li>
+        </ul>
+      </div>
+      <div class="col">
+        <h2>Új bérlet</h2>
+        <form role="form list">
+          <div class="item">
+            <label>
+              <span class="item-label">Alkalmak száma</span>
+              <input type="number" placeholder="Alkalmak száma" ng-model="berlet.alkalmak" value="0" autofocus>
+            </label>
+            <label>
+              <span class="item-label">Kezdő dátum</span>
+              <input type="date" placeholder="Kezdő dátum" ng-model="berlet.startDate" class="form-control">
+            </label>
+            <label>
+              <span class="item-label">Záró dátum</span>
+              <input type="date" placeholder="Záró dátum" ng-model="berlet.endDate" class="form-control">
+            </label>
+            <label>
+              <span class="item-label">Fizetett</span>
+              <input type="number" placeholder="Fizetett" ng-model="berlet.fizetett" ng-required class="form-control">
+            </label>
+            <div class="item buttons">
+              <button ng-click="goBack()" class="button">Mégse</button>
+              <button ng-click="setHaviBerlet()" type="button" class="button">Havi</button>
+              <button ng-click="set10Berlet()" type="button" class="button">10 alkalmas</button>
+              <button ng-click="setFelevesBerlet()" type="button" class="button">Féléves</button>
+              <button class="button button-positive" ng-click="save(berlet)">Mentés</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
