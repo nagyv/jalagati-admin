@@ -1,4 +1,7 @@
 <ion-view view-title="Új alkalom indítása">
+  <ion-nav-buttons side="right">
+    <a class="button icon ion-grid" ui-sref="app.alkalmakLista"></a>
+  </ion-nav-buttons>
   <ion-content>
     <form name="addAlkalomForm" role="form" ng-submit="setupAlkalom(ujAlkalom)">
       <div class="list">
@@ -26,11 +29,9 @@
             </div>
         </label>
         <label class="item">
-          <a ui-sref="app.alkalmakLista" class="button">Alkalmak</a>
           <button type="submit" class="button button-positive">Mehet</button>
         </label>
       </div>
-
     </form>
   </ion-content>
 </ion-view>

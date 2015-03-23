@@ -17,8 +17,8 @@
           <li class="item item-button-right" ng-repeat="jogas in jogasok | filter:location | filter:search | orderBy:name">
             {{jogas.name}}
             <div class="buttons">
-              <a ui-sref="app.jogasokBerletek(jogasId:jogas._id)" class="button icon ion-star">Bérletek</a>
-              <button ng-click="addResztvevo(jogas, alkalom)" class="button icon ion-plus button-positive"></button>
+              <a ui-sref="app.jogasokBerletek({jogasId:jogas._id})" class="button icon ion-star" title="Bérlet"></a>
+              <button ng-click="addResztvevo(jogas, alkalom)" class="button icon ion-plus button-positive" title="Hozzáad"></button>
             </div>
           </li>
         </ul>
@@ -29,8 +29,8 @@
           <li class="item item-button-right" ng-repeat="resztvevo in alkalom.resztvevok | orderBy:name">
             {{resztvevo.name}}
             <div class="buttons">
-              <button class="button icon ion-edit" ui-turn-on="editResztvevo" ng-click="editResztvevo(resztvevo.resztvevo)"></button>
-              <button ng-click="removeResztvevo(resztvevo, alkalom)" class="button button-warning icon ion-minus"><i class="fa fa-times"></i></button>
+              <button class="button icon ion-edit" ui-turn-on="editResztvevo" ng-click="editResztvevo(resztvevo.resztvevo)" title="Részletek"></button>
+              <button ng-click="removeResztvevo(resztvevo, alkalom)" class="button button-warning icon ion-minus" title="Töröl"></button>
             </div>
           </li>
         </ul>

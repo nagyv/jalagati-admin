@@ -1,4 +1,7 @@
 <ion-view view-title="Alkalmak">
+  <ion-nav-buttons side="right">
+    <a class="button icon ion-plus" ui-sref="app.alkalmakUj"></a>
+  </ion-nav-buttons>
   <ion-content>
     <ul class="list">
       <li class="item item-icon-right" ng-repeat="alkalom in alkalmak | filter:location | orderBy:starts" class="list-group">
