@@ -17,7 +17,7 @@
           <li class="item item-button-right" ng-repeat="jogas in jogasok | filter:location | filter:search | orderBy:name">
             {{jogas.name}}
             <div class="buttons">
-              <a ng-href="#/app/jogasok/{{jogas._id}}/berlet" class="button icon ion-star">Bérletek</a>
+              <a ui-sref="app.jogasokBerletek(jogasId:jogas._id)" class="button icon ion-star">Bérletek</a>
               <button ng-click="addResztvevo(jogas, alkalom)" class="button icon ion-plus button-positive"></button>
             </div>
           </li>

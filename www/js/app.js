@@ -2,7 +2,7 @@
 
 var BackendServiceURL = 'http://127.0.0.1:8000';
 
-angular.module('starter', ['ionic', 'bk-auth', 'bk-joga-alkalom', 'bk-joga-jogas', 'bk-app', 'LocalStorageModule'])
+angular.module('starter', ['ionic', 'bk-auth', 'bk-joga-alkalom', 'bk-joga-jogas', 'bk-app'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -32,16 +32,7 @@ angular.module('starter', ['ionic', 'bk-auth', 'bk-joga-alkalom', 'bk-joga-jogas
     controller: 'AppCtrl'
   })
 
-  .state('app.uj', {
-    url: '/uj',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/uj-alkalom-form.html',
-        controller: 'UjAlkalomController'
-      }
-    }
-  })
-  .state('app.alkalmak', {
+  .state('app.alkalmakLista', {
     url: '/alkalmak',
     views: {
       'menuContent': {
@@ -50,7 +41,16 @@ angular.module('starter', ['ionic', 'bk-auth', 'bk-joga-alkalom', 'bk-joga-jogas
       }
     }
   })
-  .state('app.alkalom', {
+  .state('app.alkalmakUj', {
+    url: '/alkalmak/uj',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/uj-alkalom-form.html',
+        controller: 'UjAlkalomController'
+      }
+    }
+  })
+  .state('app.alkalmakEgy', {
     url: '/alkalmak/:alkalomId',
     views: {
       'menuContent': {
@@ -60,7 +60,7 @@ angular.module('starter', ['ionic', 'bk-auth', 'bk-joga-alkalom', 'bk-joga-jogas
     }
   })
 
-  .state('app.jogasok', {
+  .state('app.jogasokLista', {
     url: '/jogasok',
     views: {
      'menuContent': {
@@ -69,7 +69,7 @@ angular.module('starter', ['ionic', 'bk-auth', 'bk-joga-alkalom', 'bk-joga-jogas
      }
     }
   })
-  .state('app.jogas', {
+  .state('app.jogasokEgy', {
     url: '/jogasok/:jogasId',
     views: {
      'menuContent': {
@@ -78,39 +78,45 @@ angular.module('starter', ['ionic', 'bk-auth', 'bk-joga-alkalom', 'bk-joga-jogas
      }
     }
   })
-  .state('app.berlet', {
-    url: '/jogasok/:jogasId/berlet',
+  .state('app.jogasokBerletek', {
+    url: '/jogasok/:jogasId/berletek',
     views: {
      'menuContent': {
        templateUrl: 'templates/jogas-berlet.html',
        controller: 'BerletCtrl'
      }
     }
+  })
+  .state('app.jogasokAlkalmak', {
+    url: '/jogasok/:jogasId/alkalmak',
+    views: {
+     'menuContent': {
+       templateUrl: 'templates/jogas-alkalmak.html',
+       controller: 'JogasAlkalmakController'
+     }
+    }
   });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/alkalmak');
 })
-  .config(function ($httpProvider) {
-    $httpProvider.interceptors.push(function() {
-      return {
-        'request': function(config) {
-          if (config.url && !config.url.startsWith('http')) {
+
+.config(function ($httpProvider) {
+  $httpProvider.interceptors.push(function() {
+    return {
+      'request': function(config) {
+        if (config.url && !config.url.startsWith('http')) {
 //            nvActivityIndicator.startAnimating();
-            var LastChunk = config.url.split('/').splice(-1)[0];
-            if(LastChunk.indexOf('.') === -1) {
-              config.url = BackendServiceURL + config.url;
-            }
+          var LastChunk = config.url.split('/').splice(-1)[0];
+          if(LastChunk.indexOf('.') === -1) {
+            config.url = BackendServiceURL + config.url;
           }
-          return config;
+        }
+        return config;
 //        },
 //        'response': function(response){
 //          nvActivityIndicator.stopAnimating();
 //          return response;
-        }
-      };
-    });
-  }).run(function($http, localStorageService){
-    var token = '0e4d64ddc4c79acf61ceace3713a3563dbc7cc81';
-    $http.defaults.headers.common.Authorization = 'Bearer ' + token;
-    localStorageService.set('authorizationToken', token); // Step 2
+      }
+    };
   });
+});

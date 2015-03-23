@@ -2,8 +2,10 @@
   <ion-content>
     <ul class="list">
       <li class="item item-icon-right" ng-repeat="alkalom in alkalmak | filter:location | orderBy:starts" class="list-group">
-        <a class="list-group-item" ng-href="#/app/alkalmak/{{alkalom._id}}">{{alkalom.tartja}}, {{alkalom.location}}, {{alkalom.starts | date:'medium'}}
-        <i class="icon ion-star"></i></a>
+        <a ui-sref="app.alkalmakEgy({alkalomId: alkalom._id})">
+          {{alkalom.tartja}}, {{alkalom.location}}, {{alkalom.starts | date:'medium'}}
+          <i class="icon ion-chevron-right"></i>
+        </a>
       </li>
     </ul>
   </ion-content>

@@ -1,0 +1,10 @@
+<ion-view view-title="{{jogas.name}} története">
+  <ion-content>
+    <ul class="list">
+      {{jogas}}
+      <li class="item" ng-repeat="alkalom in jogas.alkalmak">
+        <a ui-sref="app.alkalmakEgy({ alkalomId: alkalom.alkalom })">{{alkalom.date}}</a>
+      </li>
+    </ul>
+  </ion-content>
+</ion-view>

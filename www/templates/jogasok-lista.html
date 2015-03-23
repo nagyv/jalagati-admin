@@ -16,9 +16,9 @@
           <li class="item item-button-right" ng-repeat="jogas in jogasok | filter: location | filter:search | orderBy:name">
             <span>{{jogas.name}} <span ng-if="jogas.nick"> ({{jogas.nick}})</span></span>
             <div class="buttons">
-              <a ng-href="#/app/jogasok/{{jogas._id}}" class="button"><i class="fa fa-user"></i> Adatok</a>
-              <a ng-href="#/app/jogasok/{{jogas._id}}/berlet" class="button"><i class="fa fa-star-half"></i>Bérletek</a>
-              <a ng-href="#/app/jogasok/{{jogas._id}}/alkalmak" class="button"><i class="fa fa-calendar"></i>Történet</a>
+              <a ui-sref="app.jogasokEgy({jogasId: jogas._id})" class="button icon ion-information-circled"></a>
+              <a ui-sref="app.jogasokBerletek({jogasId: jogas._id})" class="button icon ion-star"></a>
+              <a ui-sref="app.jogasokAlkalmak({jogasId: jogas._id})" class="button icon ion-calendar"></a>
             </div>
           </li>
         </ul>

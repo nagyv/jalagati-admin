@@ -20,8 +20,8 @@
       <div class="item">
         <button class="button button-positive">Ment</button>
         <button type="reset" class="button button-light">Mégse</button>
-        <a ng-href="#/app/jogasok/{{jogas._id}}/berlet" class="button">Bérletek</a>
-        <a href="#/app/jogasok/{{jogas._id}}/alkalmak" class="button">Történet</a>
+        <a ui-sref="app.jogasokBerletek({jogasId:jogas._id})" class="button">Bérletek</a>
+        <a ui-sref="app.jogasokAlkalmak({jogasId:jogas._id})" class="button">Történet</a>
       </div>
     </form>
   </ion-content>
