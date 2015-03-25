@@ -78,7 +78,7 @@ angular.module('bk-joga-alkalom', ['ngResource', 'bk-progress'])
     $scope.location = '';
     $scope.alkalmak = Alkalom.query();
   })
-  .controller('AlkalomController', function ($scope, $stateParams, $window, Jogas, alertify, $location, Alkalom,
+  .controller('AlkalomController', function ($scope, $stateParams, $window, Jogas, bkProgress, $location, Alkalom,
                                              Resztvevo, varosok, httpErrorHandler, $ionicModal, $state) {
     var editModal;
     $scope.alkalom = Alkalom.get({'id': $stateParams.alkalomId}, function(){
@@ -114,13 +114,13 @@ angular.module('bk-joga-alkalom', ['ngResource', 'bk-progress'])
           data[key] = resztvevo[key];
         });
         resztvevo.$update(data).then(function(/*data*/){
-          alertify.success('Módosítások elmentve');
+          bkProgress.show('Módosítások elmentve');
           $editScope.closeEdit();
         }, httpErrorHandler);
       };
       $editScope.removeBerlet = function(resztvevo) {
         resztvevo.$removeBerlet().then(function(/*data*/){
-          alertify.success('Bérlet használata törölve');
+          bkProgress.show('Bérlet használata törölve');
         }, httpErrorHandler);
       };
       $editScope.closeEdit = function() {

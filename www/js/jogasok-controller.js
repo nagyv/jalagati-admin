@@ -10,7 +10,7 @@ angular.module('bk-joga-jogas', ['ngResource', 'bk-progress'])
     });
     return Jogas;
   })
-  .controller('JogasokCtrl', function JogasokController($scope, $location, Jogas, varosok, alertify, httpErrorHandler) {
+  .controller('JogasokCtrl', function JogasokController($scope, $location, Jogas, varosok, bkProgress, httpErrorHandler) {
     $scope.jogasok = Jogas.query();
     $scope.varosok = varosok;
     $scope.search = $scope.location = '';
@@ -21,7 +21,7 @@ angular.module('bk-joga-jogas', ['ngResource', 'bk-progress'])
     $scope.addJogas = function (jogas) {
       var j = new Jogas(jogas);
       j.$save(function (value) {
-        alertify.success('Módosítások elmentve');
+        bkProgress.show('Módosítások elmentve');
         if($location.search().next) {
           $location.path($location.search().next);
         } else {
@@ -30,22 +30,22 @@ angular.module('bk-joga-jogas', ['ngResource', 'bk-progress'])
       }, httpErrorHandler);
     };
   })
-  .controller('JogasCtrl', function JogasCtrl($scope, $stateParams, Jogas, varosok, alertify, httpErrorHandler) {
+  .controller('JogasCtrl', function JogasCtrl($scope, $stateParams, Jogas, varosok, bkProgress, httpErrorHandler, $ionicHistory) {
     $scope.jogas = Jogas.get({id: $stateParams.jogasId});
     $scope.varosok = varosok;
     $scope.save = function save(jogas) {
       jogas.$save({}, function (/*data*/) {
-        alertify.success('Módosítások elmentve');
-        $scope.back();
+        bkProgress.show('Módosítások elmentve');
+        $ionicHistory.goBack();
       }, httpErrorHandler);
     };
   })
-  .controller('BerletCtrl', function BerletCtrl($scope, $stateParams, $ionicHistory, Jogas, arak, alertify, httpErrorHandler) {
+  .controller('BerletCtrl', function BerletCtrl($scope, $stateParams, $ionicHistory, Jogas, arak, bkProgress, httpErrorHandler) {
     $scope.jogas = Jogas.get({id: $stateParams.jogasId});
     $scope.save = function (berlet) {
       $scope.jogas.$ujBerlet(berlet, function (/*data*/) {
-        alertify.success('Módosítások elmentve');
-        $scope.back();
+        bkProgress.show('Módosítások elmentve');
+        $ionicHistory.goBack();
       }, httpErrorHandler);
     };
     $scope.goBack = $ionicHistory.goBack;

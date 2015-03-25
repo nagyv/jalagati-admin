@@ -29,7 +29,7 @@ angular.module('bk-auth', ['bk-progress', 'http-auth-interceptor', 'LocalStorage
         })
         .error(function(status){
           $rootScope.$broadcast('event:auth-login-failed', status);
-          bkProgress.showText(false, 100000, 'Hibás bejelentkezés');
+          bkProgress.show('Hibás bejelentkezés');
         });
     };
 
@@ -45,12 +45,12 @@ angular.module('bk-auth', ['bk-progress', 'http-auth-interceptor', 'LocalStorage
             return config;
           });
 
-          bkProgress.showText(false, 100000, 'Sikeres regisztrálás');
+          bkProgress.show('Sikeres regisztrálás');
           return data;
         })
         .error(function(){
           $rootScope.$broadcast(AUTH_EVENTS.registrationFailed);
-          bkProgress.showText(false, 100000,'Hibás regisztrálás');
+          bkProgress.show('Hibás regisztrálás');
         });
     };
 
