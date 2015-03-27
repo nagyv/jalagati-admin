@@ -21,7 +21,7 @@
         <button type="reset" class="button button-light">Mégse</button>
         <a ui-sref="app.jogasokBerletek({jogasId:jogas._id})" class="button">Bérletek</a>
         <a ui-sref="app.jogasokAlkalmak({jogasId:jogas._id})" class="button">Történet</a>
-        <button class="button button-positive">Ment</button>
+        <button class="button button-positive" ng-disabled="isDisabled">Ment</button>
       </div>
     </form>
   </ion-content>

@@ -36,7 +36,7 @@
               <button ng-click="setHaviBerlet()" type="button" class="button">Havi</button>
               <button ng-click="set10Berlet()" type="button" class="button">10 alkalmas</button>
               <button ng-click="setFelevesBerlet()" type="button" class="button">Féléves</button>
-              <button class="button button-positive" ng-click="save(berlet)">Mentés</button>
+              <button class="button button-positive" ng-click="save(berlet)" ng-disabled="isDisabled">Mentés</button>
             </div>
           </div>
         </form>

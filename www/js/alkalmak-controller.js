@@ -63,12 +63,15 @@ angular.module('bk-joga-alkalom', ['ngResource', 'bk-progress'])
       date: _nextHour,
       time: _nextHour
     };
+    $scope.isDisabled = false;
     $scope.setupAlkalom = function (alkalom) {
+      $scope.isDisabled = true;
       alkalom.starts = moment(alkalom.date.toISOString().split('T')[0] + ' ' + alkalom.time.toLocaleTimeString()).toDate();
       delete alkalom.date;
       delete alkalom.time;
       alkalom = new Alkalom(alkalom);
       alkalom.$save(function (value) {
+        $scope.isDisabled = false;
         $location.path('/alkalmak/' + value._id);
       }, httpErrorHandler);
     };

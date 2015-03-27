@@ -32,9 +32,20 @@ angular.module(['bk-auth'])
           username: '',
           password: ''
         };
+        $scope.isDisabled = false;
         // Perform the login action when the user submits the login form
         $scope.doLogin = function(credentials) {
-          bkAuthService.login(credentials);
+          $scope.isDisabled = true;
+          bkAuthService.login(credentials)
+            .then(function(){
+              $scope.credentials = {
+                username: '',
+                password: ''
+              };
+            })
+            .finally(function(){
+              $scope.isDisabled = false;
+            });
           return false;
         };
       }

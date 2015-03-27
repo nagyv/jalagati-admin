@@ -18,9 +18,16 @@ angular.module('bk-joga-jogas', ['ngResource', 'bk-progress'])
       name: $location.search().name,
       city: $location.search().city
     };
+    $scope.isDisabled = false;
     $scope.addJogas = function (jogas) {
+      $scope.isDisabled = true;
+      $scope.jogas = {
+        name: $location.search().name,
+        city: $location.search().city
+      };
       var j = new Jogas(jogas);
       j.$save(function (value) {
+        $scope.isDisabled = false;
         bkProgress.show('Módosítások elmentve');
         if($location.search().next) {
           $location.path($location.search().next);
@@ -33,8 +40,11 @@ angular.module('bk-joga-jogas', ['ngResource', 'bk-progress'])
   .controller('JogasCtrl', function JogasCtrl($scope, $stateParams, Jogas, varosok, bkProgress, httpErrorHandler, $ionicHistory) {
     $scope.jogas = Jogas.get({id: $stateParams.jogasId});
     $scope.varosok = varosok;
+    $scope.isDisabled = false;
     $scope.save = function save(jogas) {
+      $scope.isDisabled = true;
       jogas.$save({}, function (/*data*/) {
+        $scope.isDisabled = false;
         bkProgress.show('Módosítások elmentve');
         $ionicHistory.goBack();
       }, httpErrorHandler);
@@ -42,8 +52,11 @@ angular.module('bk-joga-jogas', ['ngResource', 'bk-progress'])
   })
   .controller('BerletCtrl', function BerletCtrl($scope, $stateParams, $ionicHistory, Jogas, arak, bkProgress, httpErrorHandler) {
     $scope.jogas = Jogas.get({id: $stateParams.jogasId});
+    $scope.isDisabled = false;
     $scope.save = function (berlet) {
+      $scope.isDisabled = true;
       $scope.jogas.$ujBerlet(berlet, function (/*data*/) {
+        $scope.isDisabled = false;
         bkProgress.show('Módosítások elmentve');
         $ionicHistory.goBack();
       }, httpErrorHandler);
