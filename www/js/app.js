@@ -1,6 +1,7 @@
 'use strict';
 
 var BackendServiceURL = 'https://jogaadmin.herokuapp.com';
+//var BackendServiceURL = 'http://127.0.0.1:8000';
 
 angular.module('starter', ['ionic', 'angular-loading-bar', 'ngCordova', 'bk-auth', 'bk-joga-alkalom', 'bk-joga-jogas', 'bk-app'])
 
@@ -17,7 +18,15 @@ angular.module('starter', ['ionic', 'angular-loading-bar', 'ngCordova', 'bk-auth
     }
   });
 })
-
+.filter('reverse', function() {
+  return function(items) {
+    if(items && items.slice) {
+      return items.slice().reverse();
+    } else {
+      return items;
+    }
+  };
+})
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
   .state('register', {

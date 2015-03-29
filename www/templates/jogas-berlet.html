@@ -4,7 +4,7 @@
       <div class="col">
         <h2>Korábbi bérletei</h2>
         <ul class="list">
-          <li class="item" ng-repeat="berlet in jogas.berletek">
+          <li class="item" ng-repeat="berlet in jogas.berletek | reverse">
             <div ng-show="{{berlet.alkalmak}}">Alkalmak: {{berlet.alkalmak}}</div>
             <div>Időszak: {{berlet.startDate | date }}-{{berlet.endDate | date }}</div>
             <div>Felhasználva: {{berlet.felhasznalva.length}}</div>
