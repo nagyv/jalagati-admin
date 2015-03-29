@@ -53,7 +53,7 @@ angular.module('bk-joga-alkalom', ['ngResource', 'bk-progress'])
     });
     return Resztvevo;
   })
-  .controller('UjAlkalomController', function($scope, $location, Alkalom, jogatartok, varosok, httpErrorHandler){
+  .controller('UjAlkalomController', function($scope, $state, Alkalom, jogatartok, varosok, httpErrorHandler){
     var _nextHour = nextHour().toDate();
     $scope.jogatartok = jogatartok;
     $scope.varosok = varosok;
@@ -72,27 +72,31 @@ angular.module('bk-joga-alkalom', ['ngResource', 'bk-progress'])
       alkalom = new Alkalom(alkalom);
       alkalom.$save(function (value) {
         $scope.isDisabled = false;
-        $location.path('/alkalmak/' + value._id);
+        $state.go('app.alkalmakEgy', {'alkalomId': value._id});
       }, httpErrorHandler);
     };
   })
   .controller('AlkalomListaController', function ($scope, Alkalom, varosok) {
+    $scope.$on('$ionicView.beforeEnter', function(){
+      $scope.alkalmak = Alkalom.query();
+    });
     $scope.varosok = varosok;
     $scope.location = '';
-    $scope.alkalmak = Alkalom.query();
   })
   .controller('AlkalomController', function ($scope, $stateParams, $window, Jogas, bkProgress, $location, Alkalom,
                                              Resztvevo, varosok, httpErrorHandler, $ionicModal, $state) {
     var editModal;
+    $scope.$on('$ionicView.beforeEnter', function(){
+      $scope.jogasok = Jogas.query();
+    });
     $scope.alkalom = Alkalom.get({'id': $stateParams.alkalomId}, function(){
       if($scope.alkalom.state === 'closed') {
         $state.go('app.alkalmakLezart', {alkalomId: $stateParams.alkalomId});
       }
     });
-    $scope.jogasok = Jogas.query();
     $scope.varosok = varosok;
     $scope.addJogas = function(search) {
-      $location.search('next', $location.path());
+      $location.search('back', true);
       $location.search('name', search);
       $location.search('city', $scope.alkalom.location);
       $location.path('/app/jogasok');

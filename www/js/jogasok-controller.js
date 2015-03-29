@@ -10,7 +10,7 @@ angular.module('bk-joga-jogas', ['ngResource', 'bk-progress'])
     });
     return Jogas;
   })
-  .controller('JogasokCtrl', function JogasokController($scope, $location, Jogas, varosok, bkProgress, httpErrorHandler) {
+  .controller('JogasokCtrl', function JogasokController($scope, $location, $state, $ionicHistory, Jogas, varosok, bkProgress, httpErrorHandler) {
     $scope.jogasok = Jogas.query();
     $scope.varosok = varosok;
     $scope.search = $scope.location = '';
@@ -18,27 +18,33 @@ angular.module('bk-joga-jogas', ['ngResource', 'bk-progress'])
       name: $location.search().name,
       city: $location.search().city
     };
+    $location.search('name', null);
+    $location.search('city', null);
     $scope.isDisabled = false;
     $scope.addJogas = function (jogas) {
       $scope.isDisabled = true;
       $scope.jogas = {
-        name: $location.search().name,
-        city: $location.search().city
+        name: '',
+        city: ''
       };
       var j = new Jogas(jogas);
       j.$save(function (value) {
+        $scope.jogasok = Jogas.query();
         $scope.isDisabled = false;
         bkProgress.show('Módosítások elmentve');
-        if($location.search().next) {
-          $location.path($location.search().next);
+        if($location.search('back')) {
+          $location.search('back', null);
+          $ionicHistory.goBack();
         } else {
-          $location.path('/jogasok/' + value._id);
+          $state.go('app.jogasokEgy', {'jogasId': value._id});
         }
       }, httpErrorHandler);
     };
   })
   .controller('JogasCtrl', function JogasCtrl($scope, $stateParams, Jogas, varosok, bkProgress, httpErrorHandler, $ionicHistory) {
-    $scope.jogas = Jogas.get({id: $stateParams.jogasId});
+    $scope.$on('$ionicView.beforeEnter', function(){
+      $scope.jogas = Jogas.get({id: $stateParams.jogasId});
+    });
     $scope.varosok = varosok;
     $scope.isDisabled = false;
     $scope.save = function save(jogas) {
@@ -51,7 +57,9 @@ angular.module('bk-joga-jogas', ['ngResource', 'bk-progress'])
     };
   })
   .controller('BerletCtrl', function BerletCtrl($scope, $stateParams, $ionicHistory, Jogas, arak, bkProgress, httpErrorHandler) {
-    $scope.jogas = Jogas.get({id: $stateParams.jogasId});
+    $scope.$on('$ionicView.beforeEnter', function(){
+      $scope.jogas = Jogas.get({id: $stateParams.jogasId});
+    });
     $scope.isDisabled = false;
     $scope.save = function (berlet) {
       $scope.isDisabled = true;
@@ -88,6 +96,8 @@ angular.module('bk-joga-jogas', ['ngResource', 'bk-progress'])
     };
   })
   .controller('JogasAlkalmakController', function JogasAlkalmakController($scope, $stateParams, Jogas){
-    $scope.jogas = Jogas.get({id: $stateParams.jogasId});
+    $scope.$on('$ionicView.beforeEnter', function(){
+      $scope.jogas = Jogas.get({id: $stateParams.jogasId});
+    });
   });
 
